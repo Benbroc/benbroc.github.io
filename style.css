@@ -1,0 +1,67 @@
+/* Grunddesign & Hintergrund */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #1e1e2f, #252542);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container für die Box */
+.container {
+    width: 100%;
+    max-width: 450px;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+/* Profilbilder-Styling */
+.avatar {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    border: 3px solid #00ff88;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 1.5rem;
+    margin: 10px 0 5px 0;
+}
+
+.bio {
+    font-size: 0.9rem;
+    color: #a0a0c0;
+    margin-bottom: 30px;
+}
+
+/* Button-Styling */
+.links {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.link-btn {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover-Effekt für die Buttons */
+.link-btn:hover {
+    background-color: #00ff88;
+    color: #1e1e2f;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
