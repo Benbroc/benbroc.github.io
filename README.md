@@ -21,5 +21,6 @@ Welcome to my personal link-in-bio and project showcase page! This is a clean, m
 ```text
 ├── index.html            # Main web page structure & content
 ├── style.css             # Custom styles, layout configurations, and animations
-├── channels4_profile.jpg # Profile picture used for the avatar and favicon
+├── channels4_profile.jpg # Profile picture used for the avatar
+├── favicon.png           # Favicon of the Page
 └── README.md             # Project documentation (this file)
