@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BenKormos - Links & Projects</title>
+    <title>Julian442 - Links & Projects</title>
     
-    <link rel="icon" type="image/jpeg" href="benkormos.jpg">
+    <link rel="icon" type="image/jpeg" href="julian.profilbild.jpg">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Basis-Layout & Dunkler Hintergrund */
+        /* Basis-Layout & Custom Background Konfiguration */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #12111a;
+            
+            /* Lädt hintergrund.jpg direkt aus demselben Ordner, falls vorhanden */
+            background: linear-gradient(rgba(18, 17, 26, 0.85), rgba(18, 17, 26, 0.85)), 
+                        url('julian.hintergrund.jpg') no-repeat center center fixed;
+            
+            /* Schönes, dunkles Fallback-Grau, falls das Bild fehlt */
+            background-color: #12111a; 
+            background-size: cover;
+            
             color: #ffffff;
             margin: 0;
             padding: 0;
@@ -65,6 +73,8 @@
             object-fit: cover;
             transition: transform 0.3s ease;
             margin: 0 auto;
+            /* Falls julian.jpg fehlt, wird ein grauer Kreis mit User-Icon angezeigt */
+            background-color: #2a2838;
         }
 
         .avatar:hover {
@@ -86,14 +96,16 @@
             text-align: center;
         }
 
-        /* Boxen / Cards */
+        /* Boxen / Cards (Immer solide abgetönt) */
         .section-box {
-            background: rgba(255, 255, 255, 0.04);
+            background: rgba(30, 28, 41, 0.75); /* Kompaktes Dunkelgrau */
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             width: 100%;
             box-sizing: border-box;
         }
@@ -112,8 +124,12 @@
             font-size: 0.95rem;
             line-height: 1.6;
             color: #cdd1e4;
-            margin: 0;
+            margin: 0 0 8px 0;
             text-align: left;
+        }
+        
+        p:last-child {
+            margin-bottom: 0;
         }
 
         /* Link-Buttons Container */
@@ -153,51 +169,6 @@
             box-shadow: 0 6px 20px rgba(0, 255, 136, 0.25);
         }
 
-        /* Projekt-Bereich */
-        .project-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .project-card {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
-            padding: 16px;
-            text-align: left;
-            box-sizing: border-box;
-        }
-
-        .project-card h4 {
-            margin: 0 0 8px 0;
-            font-size: 1.05rem;
-            color: #ffffff;
-        }
-
-        .project-card p {
-            font-size: 0.88rem;
-            color: #a0a5c0;
-            margin-bottom: 12px;
-        }
-
-        /* Blaue Projekt-Links ohne Kasten */
-        .project-card a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-size: 0.88rem;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            transition: color 0.2s ease;
-        }
-
-        .project-card a:hover {
-            color: #00ff88;
-            text-decoration: underline;
-        }
-
         /* Footer */
         .footer {
             text-align: center;
@@ -221,27 +192,28 @@
         </a>
 
         <header class="profile">
-            <img src="benkormos.jpg" alt="Profile Picture" class="avatar">
-            <h1>BenKormos</h1>
-            <p class="tagline">Owner & Developer</p>
+            <img src="julian.profilbild.jpg" alt="👤" class="avatar">
+            <h1>Julian</h1>
+            <p class="tagline">Developer</p>
         </header>
 
         <section class="section-box">
             <h3>About Me 👋</h3>
-            <p>Welcome to my page! I love building codes, tinkering with code, and sharing my latest projects and favorite links right here with you.</p>
+            <p>Ich bin der Julian442.</p>
+            <p>Ich bin sehr tuff.</p>
         </section>
 
         <section class="section-box">
             <h3>Links 🔗</h3>
             <div class="links-container">
-                <a href="https://github.com/benbroc" target="_blank" class="link-btn">
-                    <i class="fab fa-github"></i> My GitHub Repository
+                <a href="https://github.com/julixn442" target="_blank" class="link-btn">
+                    <i class="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://youtube.com/@benkormos" target="_blank" class="link-btn">
-                    <i class="fab fa-youtube"></i> My YouTube Channel
+                <a href="https://youtube.com/@Julian_2044" target="_blank" class="link-btn">
+                    <i class="fab fa-youtube"></i> YouTube
                 </a>
-                <a href="https://twitch.tv/benkormos" target="_blank" class="link-btn">
-                    <i class="fab fa-twitch"></i> Live on Twitch
+                <a href="https://twitch.tv/julian442_" target="_blank" class="link-btn">
+                    <i class="fab fa-twitch"></i> Twitch
                 </a>
                 <a href="https://dc.gg/ben" target="_blank" class="link-btn">
                     <i class="fab fa-discord"></i> Discord
@@ -249,28 +221,8 @@
             </div>
         </section>
 
-        <section class="section-box">
-            <h3>My Projects 🚀</h3>
-            <div class="project-grid">
-                <div class="project-card">
-                    <h4>Steam Trash Installer</h4>
-                    <p>So basically I made a Steam Installer Virus for entertainment purposes only.</p>
-                    <a href="https://github.com/Benbroc/MalwareDatabase/tree/main/SteamTrashVirus" target="_blank">
-                        <i class="fab fa-github"></i> View Repository
-                    </a>
-                </div>
-                <div class="project-card">
-                    <h4>My Minecraft Server (Voltix)</h4>
-                    <p>My Server began on the 11th of February. The server started but ended in May/June. The page is still public on my repositories.</p>
-                    <a href="https://github.com/Benbroc/voltix-website-2.0" target="_blank">
-                        <i class="fab fa-github"></i> View Repository
-                    </a>    
-                </div>
-            </div>
-        </section>
-
         <footer class="footer">
-            <p>©2026 @BenKormos • Powered by SynergyStation</p>
+            <p>© 2026 @Julian442 • Powered by SynergyStation</p>
         </footer>
     </div>
 
