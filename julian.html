@@ -3,458 +3,466 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Julian - Links & Projects</title>
+    <title>Julian442 - Links & Projects</title>
     
     <link rel="icon" type="image/jpeg" href="pictures/julian.profilbild.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Base Reset & Setup */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        /* Japan Modern Dark Style */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            min-height: 100vh;
+            background-color: #0d0c10; 
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
+            min-height: 100vh;
             position: relative;
-            overflow: hidden;
-            
-            /* HINTERGRUNDBILD HIER ANPASSEN */
-            /* Ersetze 'japan_background.jpg' mit dem Namen deines Landschaftsbildes! */
-            background-image: url('japan_background.jpg'), linear-gradient(135deg, #ff8a9c, #6c88b5, #192b4d);
+            overflow-x: hidden;
+        }
+
+        /* Japanischer Hintergrund (Bild) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Verwende das übergebene Hintergrundbild */
+            background-image: url('image_0.png');
             background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;
+            opacity: 0.6; /* Dezente Opazität für UI-Karten-Sichtbarkeit */
+            z-index: -1;
+            pointer-events: none;
         }
 
-        /* Top Left Volume Button */
-        .volume-btn {
-            position: absolute;
-            top: 25px;
-            left: 25px;
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
+        /* Haupt-Container (Nebeneinander-Layout) */
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Zurück zum Hub Link */
+        .back-link {
+            color: #6d697f;
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            align-self: flex-start;
+            border-bottom: 1px dashed transparent;
+        }
+        
+        .back-link:hover {
+            color: #ff79c6;
+            border-color: #ff79c6;
+        }
+
+        /* Profil-Bereich */
+        .profile {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 2px solid #ff79c6;
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.2);
+            background-color: #16141c;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #3b2222;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            z-index: 100;
-        }
-
-        .volume-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(1.05);
-        }
-
-        /* Main Content Wrapper */
-        .content-wrapper {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 90%;
-            max-width: 460px;
-            z-index: 10;
-        }
-
-        /* Glassmorphism Reusable Class */
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Main Profile Card */
-        .profile-card {
-            padding: 35px 25px 30px 25px;
-            text-align: center;
-            position: relative;
-            /* Sakura Akzentlinie oben (Japan Style) */
-            border-top: 3px solid rgba(255, 121, 198, 0.8); 
-        }
-
-        /* Das neue Profilbild */
-        .main-profile-pic {
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 15px auto;
-            display: block;
-            border: 2px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
             transition: transform 0.3s ease;
+            margin-bottom: 15px;
+            position: relative;
         }
 
-        .main-profile-pic:hover {
-            transform: scale(1.05);
+        /* Kleiner roter Kreis (Sonne) hinter dem Avatar beim Hover */
+        .avatar-container::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 85, 85, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .avatar-container:hover {
+            transform: scale(1.04);
+        }
+        .avatar-container:hover::after {
+            opacity: 1;
+        }
+
+        .avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 2;
+            cursor: pointer;
+        }
+
+        .avatar-fallback {
+            font-size: 2.5rem;
+            color: #4a465a;
+            z-index: 2;
         }
 
         h1 {
-            font-size: 2.2rem;
-            color: #3b2222;
-            margin-bottom: 5px;
+            font-size: 2.4rem;
             font-weight: 700;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+            margin: 0 0 4px 0;
+            letter-spacing: 1px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
         }
 
-        /* Japanischer Name / Schriftzug neben dem Titel */
-        .kanji-name {
-            font-size: 1.2rem;
-            color: #ff5555;
-            font-weight: 400;
-            opacity: 0.8;
-        }
-
-        .bio {
-            font-size: 0.95rem;
-            color: #4a2a2a;
-            line-height: 1.5;
-            margin-bottom: 25px;
-            font-weight: 500;
-        }
-
-        /* Japanischer Untertitel (Hanko/Stempel Style) */
-        .bio-subtitle {
-            font-size: 0.75rem;
-            color: #ff5555;
-            letter-spacing: 2px;
+        .tagline {
+            font-size: 0.85rem;
+            color: #ff79c6;
+            margin: 0;
+            font-weight: 700;
             text-transform: uppercase;
-            font-weight: 700;
-            margin-bottom: 15px;
-            display: block;
+            letter-spacing: 4px;
         }
 
-        /* Social Icons */
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            font-size: 1.4rem;
-        }
-
-        .social-icons a {
-            color: #4a3b3b;
-            text-decoration: none;
-            transition: transform 0.2s, color 0.2s;
-            display: inline-flex;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-3px);
-            color: #111;
-        }
-
-        .icon-whatsapp {
-            color: #25D366 !important;
-        }
-
-        /* View Counter im Card-Eck */
-        .view-counter {
+        /* Lautstärke-Button (oben links im Player) */
+        #volume-btn {
             position: absolute;
-            bottom: 12px;
-            left: 15px;
-            font-size: 0.75rem;
-            color: #4a2a2a;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-weight: 600;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            color: #ff5555;
+            cursor: pointer;
+            z-index: 2;
+            transition: color 0.2s;
+        }
+        #volume-btn:hover {
+            color: #ff79c6;
         }
 
-        /* Music Player Widget */
-        .music-player {
-            padding: 12px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
+        /* --- GRID FÜR NEBENIEINANDER-LAYOUT --- */
+        .main-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsiv und flexibel */
+            gap: 24px;
+            width: 100%;
         }
 
-        .album-cover {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            object-fit: cover;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .track-details {
-            flex: 1;
+        /* Japanische Minimalismus-Cards */
+        .section-box {
+            background: #14121a;
+            border-left: 4px solid #ff5555; /* Roter Akzentbalken links */
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-right: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 4px 16px 16px 4px; /* Oben links eckig, Rest abgerundet */
+            padding: 26px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
+            box-sizing: border-box;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            position: relative;
         }
 
-        .track-title {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #3b2222;
+        .section-box:hover {
+            border-left-color: #ff79c6; /* Wechselt zu Sakura-Rosa beim Hover */
+            transform: translateY(-3px);
+            background: #181620;
         }
 
-        .track-progress-row {
+        h3 {
+            font-size: 1.15rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #ffffff;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.7rem;
-            color: #5a3c3c;
-            font-weight: 600;
+            justify-content: space-between; /* Platz für die Kanjis rechts */
         }
 
-        .progress-bar-container {
-            flex: 1;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 3px;
-            position: relative;
-            cursor: pointer; /* Zeigt an, dass man klicken kann */
+        /* Das japanische Schriftzeichen rechts im Titel */
+        h3 .kanji {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 400;
         }
 
-        .progress-fill {
-            position: absolute;
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 0%; /* Wird durch JS gesteuert */
-            background: #ff5555; /* Rote Japan-Akzentfarbe für den Balken */
-            border-radius: 3px;
-            transition: width 0.1s linear;
-        }
-
-        .playback-controls {
-            display: flex;
-            gap: 12px;
+        p {
             font-size: 0.95rem;
-            margin-left: 5px;
-            color: #3b2222;
+            line-height: 1.65;
+            color: #b9b6cb;
+            margin: 0 0 10px 0;
         }
         
-        .playback-controls i {
-            cursor: pointer;
-            transition: color 0.2s, transform 0.1s;
+        p:last-child {
+            margin-bottom: 0;
         }
 
-        .playback-controls i:hover {
+        /* Organisation / Project Styling */
+        .project-card h4 {
+            margin: 0 0 12px 0;
+            font-size: 1.15rem;
+            color: #ffffff;
+        }
+
+        .project-card a {
+            color: #ff79c6;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .project-card a:hover {
+            color: #ff5555;
+        }
+
+        /* Link-Buttons */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.02);
+            color: #e2e0ec;
+            text-decoration: none;
+            padding: 13px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s ease;
+        }
+
+        .link-btn i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+            color: #ff5555;
+            transition: transform 0.2s;
+        }
+
+        .link-btn:hover {
+            background: #ffffff;
+            color: #0d0c10;
+            border-color: #ffffff;
+        }
+
+        .link-btn:hover i {
             color: #ff5555;
             transform: scale(1.1);
         }
 
-        /* Footer Badge */
-        .footer-badge {
-            position: absolute;
-            bottom: 25px;
-            background: rgba(15, 15, 20, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 12px 25px 12px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: white;
-            text-decoration: none;
-            border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.2s ease;
+        /* Musik-Player UI in der neuen Box */
+        .music-box h3 {
+            border-bottom: none; /* Entferne gepunktete Linie für Musik-Box */
         }
-
-        .footer-badge:hover {
-            background: rgba(15, 15, 20, 0.9);
-            transform: translateY(-2px);
-        }
-
-        .footer-badge-icon {
-            font-size: 1.2rem;
-            color: #ff5555;
-            transform: rotate(-45deg);
-        }
-
-        .footer-badge-text {
+        .music-ui {
             display: flex;
             flex-direction: column;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .music-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: #b9b6cb;
+        }
+        .progress-bar {
+            height: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 3px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .progress-fill {
+            height: 100%;
+            background-color: #ff5555;
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        .music-controls button {
+            background: none;
+            border: none;
+            color: #b9b6cb;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .music-controls button:hover {
+            color: #ffffff;
         }
 
-        .footer-badge-text strong {
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .footer p {
             font-size: 0.85rem;
-            letter-spacing: 0.5px;
+            color: #4a465a;
         }
 
-        .footer-badge-text span {
-            font-size: 0.7rem;
-            color: #aaaaaa;
-        }
-
-        .footer-badge-close {
-            margin-left: 10px;
-            font-size: 0.9rem;
-            color: #777;
+        /* --- RESPONSIVE LAYOUT (Handys) --- */
+        @media (max-width: 900px) {
+            .main-grid {
+                grid-template-columns: 1fr; /* Untereinander auf Smartphones */
+                gap: 20px;
+            }
+            .container {
+                max-width: 500px;
+                padding: 25px 15px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Audio Player (Versteckt) -->
-    <!-- WICHTIG: Füge hier bei src="..." deine Musik-Datei ein, z.B. src="music/mein_lied.mp3" -->
-    <audio id="bg-audio" src="dein_lied.mp3" preload="metadata"></audio>
+    <!-- Verstecktes Audio-Element -->
+    <audio id="my-audio" src="music.mp3" preload="auto"></audio>
 
-    <!-- Volume Button -->
-    <div class="volume-btn" id="volume-btn">
-        <i class="fas fa-volume-up"></i>
-    </div>
-
-    <!-- Main Container -->
-    <div class="content-wrapper">
+    <div class="container">
         
-        <!-- Profile Card -->
-        <main class="glass-panel profile-card">
-            
-            <!-- Profilbild hinzugefügt -->
-            <img src="pictures/julian.profilbild.png" alt="Julian Profilbild" class="main-profile-pic">
-            
-            <h1>Julian <span class="kanji-name">ジュリアン</span></h1>
-            <span class="bio-subtitle">クリエイター (Creator)</span>
-            
-            <p class="bio">
-                🎉 Ich bin Julian ein Content Creator 🎉 Sharing<br>
-                vibes! Join the Platforms for fun! 🎉
-            </p>
+        <a href="/" class="back-link">
+            <i class="fas fa-arrow-left"></i> Zurück zum Hub
+        </a>
 
-            <div class="social-icons">
-                <a href="#" target="_blank"><i class="fa-brands fa-spotify"></i></a>
-                <a href="https://twitch.tv/julian442_" target="_blank"><i class="fa-brands fa-twitch"></i></a>
-                <a href="https://youtube.com/@Julian_2044" target="_blank"><i class="fa-brands fa-youtube"></i></a>
-                <a href="https://dc.gg/ben" target="_blank"><i class="fa-brands fa-discord"></i></a>
-                <a href="#" target="_blank" class="icon-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
-                <a href="#" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                <a href="#" target="_blank"><i class="fa-solid fa-gamepad"></i></a>
+        <header class="profile">
+            <div class="avatar-container" id="avatar-box">
+                <!-- Lautstärke-Button über dem Profilbild -->
+                <button id="volume-btn"><i class="fas fa-volume-mute"></i></button>
+                <img src="pictures/julian.profilbild.png" id="profile-img" alt="Profile" style="display:none;" onclick="togglePlayPause();">
+                <i class="fas fa-user avatar-fallback" id="fallback-icon"></i>
             </div>
+            <h1>Julian</h1>
+            <p class="tagline">Developer • 開発者</p>
+        </header>
 
-            <div class="view-counter">
-                <i class="fas fa-eye"></i> 15
-            </div>
-        </main>
+        <!-- Start des Grid-Layouts (Nebeneinander) -->
+        <main class="main-grid">
 
-        <!-- Music Player Widget -->
-        <div class="glass-panel music-player">
-            <img src="pictures/julian.profilbild.png" alt="Album Cover" class="album-cover">
-            
-            <div class="track-details">
-                <div class="track-title">You Make me feel alive!</div>
+            <!-- Box 1: About Me -->
+            <section class="section-box">
+                <h3>
+                    <span><i class="far fa-smile"></i> About Me</span>
+                    <span class="kanji">私について</span>
+                </h3>
+                <p>Ich bin der Julian442.</p>
+                <p>Ich bin sehr tuff.</p>
+            </section>
+
+            <!-- Box 2: Organisation -->
+            <section class="section-box">
+                <h3>
+                    <span><i class="fas fa-sitemap"></i> Organisation</span>
+                    <span class="kanji">組織</span>
+                </h3>
+                <div class="project-card">
+                    <h4>SYNERGYstation</h4>
+                    <a href="https://github.com/SynergyStation" target="_blank">
+                        <i class="fab fa-github"></i> View Organisation
+                    </a>
+                </div>
+            </section>
+
+            <!-- Box 3: Links -->
+            <section class="section-box">
+                <h3>
+                    <span><i class="fas fa-link"></i> Links</span>
+                    <span class="kanji">リンク</span>
+                </h3>
+                <div class="links-container">
+                    <a href="https://github.com/julixn442" target="_blank" class="link-btn">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="https://youtube.com/@Julian_2044" target="_blank" class="link-btn">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                    <a href="https://twitch.tv/julian442_" target="_blank" class="link-btn">
+                        <i class="fab fa-twitch"></i> Twitch
+                    </a>
+                    <a href="https://dc.gg/ben" target="_blank" class="link-btn">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                </div>
+            </section>
+
+            <!-- NEU - Box 4: SynergyStation besuchen -->
+            <section class="section-box music-box">
+                <h3>
+                    <span><i class="fas fa-network-wired"></i> Partner</span>
+                    <span class="kanji">シナジー・ステーション</span>
+                </h3>
+                <p>Besuche unsere Hauptplattform für weitere Projekte und Infos.</p>
                 
-                <div class="track-progress-row">
-                    <span id="current-time">0:00</span>
-                    <div class="progress-bar-container" id="progress-container">
+                <!-- Musik-Player UI (Integriert) -->
+                <div class="music-ui">
+                    <div class="music-info">
+                        <span id="current-time">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                    <div class="progress-bar" id="progress-container">
                         <div class="progress-fill" id="progress-fill"></div>
                     </div>
-                    <span id="duration-time">3:30</span>
-                    
-                    <div class="playback-controls">
-                        <i class="fas fa-step-backward"></i>
-                        <i class="fas fa-play" id="play-pause-btn"></i>
-                        <i class="fas fa-step-forward"></i>
+                    <div class="music-controls">
+                        <button id="prev-btn"><i class="fas fa-backward"></i></button>
+                        <button id="play-pause-btn"><i class="fas fa-play"></i></button>
+                        <button id="next-btn"><i class="fas fa-forward"></i></button>
                     </div>
                 </div>
-            </div>
-        </div>
 
-    </div>
+                <div class="links-container">
+                    <a href="https://synergystation.github.io/" target="_blank" class="link-btn">
+                        <i class="fas fa-link"></i> SynergyStation besuchen
+                    </a>
+                </div>
+            </section>
 
-    <!-- Footer Banner -->
-    <a href="https://github.com/SynergyStation" class="footer-badge" target="_blank">
-        <i class="fas fa-link footer-badge-icon"></i>
-        <div class="footer-badge-text">
-            <strong>github.com/you</strong>
-            <span>Sichere dir jetzt kostenlos dein Profil!</span>
-        </div>
-        <i class="fas fa-times footer-badge-close"></i>
-    </a>
+        </main>
+        <!-- Ende des Grid-Layouts -->
 
-    <!-- JavaScript für den Musikplayer -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const audio = document.getElementById('bg-audio');
-            const playPauseBtn = document.getElementById('play-pause-btn');
-            const volumeBtn = document.getElementById('volume-btn');
-            const volumeIcon = volumeBtn.querySelector('i');
-            const progressFill = document.getElementById('progress-fill');
-            const progressContainer = document.getElementById('progress-container');
-            const currentTimeEl = document.getElementById('current-time');
-            const durationTimeEl = document.getElementById('duration-time');
-
-            // Format time (z.B. 65 Sekunden -> 1:05)
-            function formatTime(seconds) {
-                if (isNaN(seconds)) return "0:00";
-                const min = Math.floor(seconds / 60);
-                const sec = Math.floor(seconds % 60);
-                return `${min}:${sec < 10 ? '0' : ''}${sec}`;
-            }
-
-            // Wenn Audio-Daten geladen sind, Gesamtlänge anzeigen
-            audio.addEventListener('loadedmetadata', () => {
-                durationTimeEl.textContent = formatTime(audio.duration);
-            });
-
-            // Play / Pause Funktion
-            playPauseBtn.addEventListener('click', () => {
-                if (audio.paused) {
-                    audio.play();
-                    playPauseBtn.classList.replace('fa-play', 'fa-pause');
-                } else {
-                    audio.pause();
-                    playPauseBtn.classList.replace('fa-pause', 'fa-play');
-                }
-            });
-
-            // Mute / Unmute (Oben Links)
-            volumeBtn.addEventListener('click', () => {
-                audio.muted = !audio.muted;
-                if (audio.muted) {
-                    volumeIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
-                } else {
-                    volumeIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
-                }
-            });
-
-            // Fortschrittsbalken aktualisieren
-            audio.addEventListener('timeupdate', () => {
-                currentTimeEl.textContent = formatTime(audio.currentTime);
-                const progressPercent = (audio.currentTime / audio.duration) * 100;
-                progressFill.style.width = `${progressPercent}%`;
-            });
-
-            // In den Song klicken (Spulen)
-            progressContainer.addEventListener('click', (e) => {
-                const width = progressContainer.clientWidth;
-                const clickX = e.offsetX;
-                const duration = audio.duration;
-                audio.currentTime = (clickX / width) * duration;
-            });
-            
-            // Wenn das Lied zu Ende ist, Button wieder auf Play setzen
-            audio.addEventListener('ended', () => {
-                playPauseBtn.classList.replace('fa-pause', 'fa-play');
-                progressFill.style.width = '0%';
-                currentTimeEl.textContent = "0:00";
-            });
-        });
-    </script>
-</body>
-</html>
+        <footer class="footer">
+            <p>© 2026 @Julian442 • Powered by SynergyStation</p>
+        </footer
