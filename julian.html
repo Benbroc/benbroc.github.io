@@ -244,9 +244,9 @@
     <span class="sakura" style="left:90%; animation-duration:13s; animation-delay:2.5s;">🌸</span>
     <span class="sakura" style="left:96%; font-size:1.1rem; animation-duration:9s; animation-delay:4s;">🌸</span>
 
-    <!-- Relativer Pfad zum Ordner "music" -->
+    <!-- HIER GEÄNDERT: Führender Schrägstrich entfernt für relativen Pfad -->
     <audio id="bg-audio" loop>
-        <source src="/music/song_Julian442.mp3" type="audio/mpeg">
+        <source src="music/song_Julian442.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-controls">
@@ -325,9 +325,6 @@
         };
 
         // --- Musik automatisch starten ---
-        // Browser verbieten grundsätzlich Sound-Autoplay, bevor der Nutzer überhaupt mit der Seite interagiert hat
-        // (feste Sicherheitsregel, die sich nicht per Code umgehen lässt). Deshalb: sofort versuchen, und falls
-        // blockiert, bei der allerersten Aktion irgendwo auf der Seite starten - Klick, Tap, Taste ODER Scrollen.
         function tryAutoplay() {
             audio.play().then(() => {
                 playIcon.className = "fas fa-pause";
@@ -344,8 +341,6 @@
         tryAutoplay();
 
         // --- Like-Funktion ---
-        // Nutzt einen kostenlosen, öffentlichen Counter-Dienst, damit ALLE Besucher denselben Like-Stand sehen.
-        // Jeder Browser darf per lokaler Markierung nur einmal liken.
         const LIKE_KEY = "julian442-profile-likes-v1";
         const LIKE_HIT_URL = `https://countapi.mileshilliard.com/api/v1/hit/${LIKE_KEY}`;
         const LIKE_GET_URL = `https://countapi.mileshilliard.com/api/v1/get/${LIKE_KEY}`;
@@ -364,8 +359,6 @@
             likeBtn.disabled = true;
         }
 
-        // Aktuellen Stand laden (funktioniert nur, wenn die Seite über http/https läuft, z.B. auf GitHub Pages -
-        // beim lokalen Öffnen der Datei per Doppelklick (file://) blockieren Browser diese Anfrage aus Sicherheitsgründen)
         fetch(LIKE_GET_URL)
             .then(res => res.json())
             .then(data => renderCount(data.value ?? 0))
@@ -385,7 +378,6 @@
                     likeBtn.classList.add('pop');
                 })
                 .catch(() => {
-                    // Fallback, falls der Zähler-Dienst nicht erreichbar ist (z.B. beim lokalen Testen per file://)
                     localStorage.setItem('julian442_liked', 'true');
                     setLikedState();
                     likeBtn.classList.add('pop');
