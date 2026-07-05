@@ -27,8 +27,8 @@
             overflow: hidden;
             
             /* HINTERGRUNDBILD HIER ANPASSEN */
-            /* Wenn du ein echtes Bild hast, ändere 'background.jpg' zum Pfad deines Bildes */
-            background-image: url('background.jpg'), linear-gradient(135deg, #ff8a9c, #6c88b5, #192b4d);
+            /* Ersetze 'japan_background.jpg' mit dem Namen deines Landschaftsbildes! */
+            background-image: url('japan_background.jpg'), linear-gradient(135deg, #ff8a9c, #6c88b5, #192b4d);
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -85,14 +85,45 @@
             padding: 35px 25px 30px 25px;
             text-align: center;
             position: relative;
+            /* Sakura Akzentlinie oben (Japan Style) */
+            border-top: 3px solid rgba(255, 121, 198, 0.8); 
+        }
+
+        /* Das neue Profilbild */
+        .main-profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px auto;
+            display: block;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .main-profile-pic:hover {
+            transform: scale(1.05);
         }
 
         h1 {
             font-size: 2.2rem;
             color: #3b2222;
-            margin-bottom: 12px;
+            margin-bottom: 5px;
             font-weight: 700;
             letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        /* Japanischer Name / Schriftzug neben dem Titel */
+        .kanji-name {
+            font-size: 1.2rem;
+            color: #ff5555;
+            font-weight: 400;
+            opacity: 0.8;
         }
 
         .bio {
@@ -101,6 +132,17 @@
             line-height: 1.5;
             margin-bottom: 25px;
             font-weight: 500;
+        }
+
+        /* Japanischer Untertitel (Hanko/Stempel Style) */
+        .bio-subtitle {
+            font-size: 0.75rem;
+            color: #ff5555;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 15px;
+            display: block;
         }
 
         /* Social Icons */
@@ -123,7 +165,6 @@
             color: #111;
         }
 
-        /* Spezifische Icon-Farben aus dem Screenshot */
         .icon-whatsapp {
             color: #25D366 !important;
         }
@@ -181,10 +222,11 @@
 
         .progress-bar-container {
             flex: 1;
-            height: 4px;
+            height: 6px;
             background: rgba(255, 255, 255, 0.4);
-            border-radius: 2px;
+            border-radius: 3px;
             position: relative;
+            cursor: pointer; /* Zeigt an, dass man klicken kann */
         }
 
         .progress-fill {
@@ -192,24 +234,31 @@
             left: 0;
             top: 0;
             height: 100%;
-            width: 10%; /* Repräsentiert 0:03 von 3:30 */
-            background: #3b2222;
-            border-radius: 2px;
+            width: 0%; /* Wird durch JS gesteuert */
+            background: #ff5555; /* Rote Japan-Akzentfarbe für den Balken */
+            border-radius: 3px;
+            transition: width 0.1s linear;
         }
 
         .playback-controls {
             display: flex;
-            gap: 10px;
-            font-size: 0.85rem;
+            gap: 12px;
+            font-size: 0.95rem;
             margin-left: 5px;
             color: #3b2222;
         }
         
         .playback-controls i {
             cursor: pointer;
+            transition: color 0.2s, transform 0.1s;
         }
 
-        /* Footer Badge (Guns.lol style) */
+        .playback-controls i:hover {
+            color: #ff5555;
+            transform: scale(1.1);
+        }
+
+        /* Footer Badge */
         .footer-badge {
             position: absolute;
             bottom: 25px;
@@ -262,8 +311,12 @@
 </head>
 <body>
 
+    <!-- Audio Player (Versteckt) -->
+    <!-- WICHTIG: Füge hier bei src="..." deine Musik-Datei ein, z.B. src="music/mein_lied.mp3" -->
+    <audio id="bg-audio" src="dein_lied.mp3" preload="metadata"></audio>
+
     <!-- Volume Button -->
-    <div class="volume-btn">
+    <div class="volume-btn" id="volume-btn">
         <i class="fas fa-volume-up"></i>
     </div>
 
@@ -272,7 +325,12 @@
         
         <!-- Profile Card -->
         <main class="glass-panel profile-card">
-            <h1>Julian</h1>
+            
+            <!-- Profilbild hinzugefügt -->
+            <img src="pictures/julian.profilbild.png" alt="Julian Profilbild" class="main-profile-pic">
+            
+            <h1>Julian <span class="kanji-name">ジュリアン</span></h1>
+            <span class="bio-subtitle">クリエイター (Creator)</span>
             
             <p class="bio">
                 🎉 Ich bin Julian ein Content Creator 🎉 Sharing<br>
@@ -284,10 +342,8 @@
                 <a href="https://twitch.tv/julian442_" target="_blank"><i class="fa-brands fa-twitch"></i></a>
                 <a href="https://youtube.com/@Julian_2044" target="_blank"><i class="fa-brands fa-youtube"></i></a>
                 <a href="https://dc.gg/ben" target="_blank"><i class="fa-brands fa-discord"></i></a>
-                <!-- WhatsApp hat als einziges Icon die Originalfarbe im Bild -->
                 <a href="#" target="_blank" class="icon-whatsapp"><i class="fa-brands fa-whatsapp"></i></a>
                 <a href="#" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-                <!-- Platzhalter für Roblox (ist standardmäßig nicht im Free FontAwesome Set) -->
                 <a href="#" target="_blank"><i class="fa-solid fa-gamepad"></i></a>
             </div>
 
@@ -298,22 +354,21 @@
 
         <!-- Music Player Widget -->
         <div class="glass-panel music-player">
-            <!-- Nutzt dein existierendes Profilbild als Cover -->
-            <img src="pictures/julian.profilbild.png" alt="Album Cover" class="album-cover" onerror="this.src='https://via.placeholder.com/50/16141c/ff79c6?text=J'">
+            <img src="pictures/julian.profilbild.png" alt="Album Cover" class="album-cover">
             
             <div class="track-details">
                 <div class="track-title">You Make me feel alive!</div>
                 
                 <div class="track-progress-row">
-                    <span>0:03</span>
-                    <div class="progress-bar-container">
-                        <div class="progress-fill"></div>
+                    <span id="current-time">0:00</span>
+                    <div class="progress-bar-container" id="progress-container">
+                        <div class="progress-fill" id="progress-fill"></div>
                     </div>
-                    <span>3:30</span>
+                    <span id="duration-time">3:30</span>
                     
                     <div class="playback-controls">
                         <i class="fas fa-step-backward"></i>
-                        <i class="fas fa-pause"></i>
+                        <i class="fas fa-play" id="play-pause-btn"></i>
                         <i class="fas fa-step-forward"></i>
                     </div>
                 </div>
@@ -332,17 +387,72 @@
         <i class="fas fa-times footer-badge-close"></i>
     </a>
 
-    <!-- Optional: Script für Volume-Toggle Funktionalität -->
+    <!-- JavaScript für den Musikplayer -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            const volumeBtn = document.querySelector('.volume-btn i');
-            
-            volumeBtn.parentElement.addEventListener('click', () => {
-                if(volumeBtn.classList.contains('fa-volume-up')) {
-                    volumeBtn.classList.replace('fa-volume-up', 'fa-volume-mute');
+            const audio = document.getElementById('bg-audio');
+            const playPauseBtn = document.getElementById('play-pause-btn');
+            const volumeBtn = document.getElementById('volume-btn');
+            const volumeIcon = volumeBtn.querySelector('i');
+            const progressFill = document.getElementById('progress-fill');
+            const progressContainer = document.getElementById('progress-container');
+            const currentTimeEl = document.getElementById('current-time');
+            const durationTimeEl = document.getElementById('duration-time');
+
+            // Format time (z.B. 65 Sekunden -> 1:05)
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return "0:00";
+                const min = Math.floor(seconds / 60);
+                const sec = Math.floor(seconds % 60);
+                return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+            }
+
+            // Wenn Audio-Daten geladen sind, Gesamtlänge anzeigen
+            audio.addEventListener('loadedmetadata', () => {
+                durationTimeEl.textContent = formatTime(audio.duration);
+            });
+
+            // Play / Pause Funktion
+            playPauseBtn.addEventListener('click', () => {
+                if (audio.paused) {
+                    audio.play();
+                    playPauseBtn.classList.replace('fa-play', 'fa-pause');
                 } else {
-                    volumeBtn.classList.replace('fa-volume-mute', 'fa-volume-up');
+                    audio.pause();
+                    playPauseBtn.classList.replace('fa-pause', 'fa-play');
                 }
+            });
+
+            // Mute / Unmute (Oben Links)
+            volumeBtn.addEventListener('click', () => {
+                audio.muted = !audio.muted;
+                if (audio.muted) {
+                    volumeIcon.classList.replace('fa-volume-up', 'fa-volume-mute');
+                } else {
+                    volumeIcon.classList.replace('fa-volume-mute', 'fa-volume-up');
+                }
+            });
+
+            // Fortschrittsbalken aktualisieren
+            audio.addEventListener('timeupdate', () => {
+                currentTimeEl.textContent = formatTime(audio.currentTime);
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progressFill.style.width = `${progressPercent}%`;
+            });
+
+            // In den Song klicken (Spulen)
+            progressContainer.addEventListener('click', (e) => {
+                const width = progressContainer.clientWidth;
+                const clickX = e.offsetX;
+                const duration = audio.duration;
+                audio.currentTime = (clickX / width) * duration;
+            });
+            
+            // Wenn das Lied zu Ende ist, Button wieder auf Play setzen
+            audio.addEventListener('ended', () => {
+                playPauseBtn.classList.replace('fa-pause', 'fa-play');
+                progressFill.style.width = '0%';
+                currentTimeEl.textContent = "0:00";
             });
         });
     </script>
