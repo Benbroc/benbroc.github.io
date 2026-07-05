@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+    
+    <!-- Automatische HTML-Weiterleitung nach 0 Sekunden auf /benkormos -->
+    <meta http-equiv="refresh" content="0;url=/benkormos">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            background: #06060c;
+            color: #f1f1f7;
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .redirect-box {
+            text-align: center;
+            backdrop-filter: blur(20px);
+            background: rgba(14, 14, 28, 0.65);
+            padding: 40px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .spinner {
+            font-size: 2.5rem;
+            color: #00f0ff;
+            margin-bottom: 20px;
+            animation: spin 1s linear infinite;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+        }
+
+        h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        p {
+            color: #9497ad;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        a {
+            color: #bd00ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="redirect-box">
+        <i class="fas fa-circle-notch spinner"></i>
+        <h2>Verbindung wird hergestellt</h2>
+        <p>Du wirst weitergeleitet... Falls nicht, <a href="/benkormos">klicke hier</a>.</p>
+    </div>
+
+    <!-- JavaScript Fallback-Weiterleitung, falls Meta-Refresh blockiert wird -->
+    <script>
+        setTimeout(function() {
+            window.location.href = "/benkormos";
+        }, 50);
+    </script>
+</body>
+</html>
