@@ -14,24 +14,22 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: url('bg_Julian442.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #ffffff;
+            background-color: #ffffff; /* Weißer Hintergrund passend zu image_35fa0b.png */
+            color: #333;
         }
 
         /* Musik-Controls */
-        .music-controls { position: absolute; top: 30px; left: 30px; display: flex; gap: 15px; z-index: 10; }
+        .music-controls { position: absolute; top: 30px; left: 30px; display: flex; gap: 15px; }
         .control-btn {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(0, 0, 0, 0.1);
             width: 45px; height: 45px;
             border-radius: 50%;
-            color: white;
+            color: #333;
             cursor: pointer;
             transition: 0.3s;
         }
-        .control-btn:hover { background: rgba(255, 107, 129, 0.4); }
+        .control-btn:hover { background: rgba(0, 0, 0, 0.1); }
 
         /* Zurück-Button */
         .back-btn {
@@ -39,44 +37,29 @@
             top: 30px;
             right: 30px;
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            color: white;
             text-decoration: none;
+            color: #666;
             font-size: 0.9rem;
             transition: 0.3s;
         }
-        .back-btn:hover { background: rgba(255, 255, 255, 0.2); }
+        .back-btn:hover { color: #000; }
 
-        /* Glassmorphism Karte */
+        /* Zentriertes Panel wie in image_35fa0b.png */
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
+            background: #ffffff;
             width: 90%;
-            max-width: 450px;
+            max-width: 400px;
             text-align: center;
             padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .avatar { width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.3); }
-        .sakura { font-size: 3rem; margin-bottom: 10px; }
-        h1 { font-size: 2rem; margin-bottom: 5px; }
-        .kanji { color: #ff8ca3; font-size: 0.9rem; margin-bottom: 20px; display: block; }
-        
-        .socials { display: flex; justify-content: center; gap: 20px; font-size: 1.5rem; margin-top: 20px; }
-        .socials a { color: white; opacity: 0.8; transition: 0.3s; }
-        .socials a:hover { opacity: 1; color: #ff8ca3; }
+        .avatar { width: 70px; height: 70px; border-radius: 50%; margin-bottom: 20px; }
+        .sakura { font-size: 3rem; margin-bottom: 20px; }
+        .kanji { color: #ff8ca3; font-size: 1rem; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <!-- Musik-Datei eingebunden -->
     <audio id="bg-audio" src="song_Julian442.mp3" loop></audio>
 
     <div class="music-controls">
@@ -84,21 +67,12 @@
         <button class="control-btn" id="volume-btn"><i class="fas fa-volume-up"></i></button>
     </div>
 
-    <a href="https://synergystation.github.io/" class="back-btn"><i class="fas fa-arrow-left"></i> SynergyStation</a>
+    <a href="https://synergystation.github.io/" class="back-btn">Zurück</a>
 
     <div class="card">
         <img src="pictures/julian.profilbild.png" class="avatar" alt="Avatar">
         <div class="sakura">🌸</div>
-        <h1>Julian</h1>
-        <span class="kanji">ジュリアン</span>
-        <p>CONTENT CREATOR • SHARING VIBES</p>
-        
-        <div class="socials">
-            <a href="#"><i class="fab fa-spotify"></i></a>
-            <a href="https://twitch.tv/julian442_"><i class="fab fa-twitch"></i></a>
-            <a href="https://youtube.com/@Julian_2044"><i class="fab fa-youtube"></i></a>
-            <a href="https://dc.gg/ben"><i class="fab fa-discord"></i></a>
-        </div>
+        <div class="kanji">ジュリアン</div>
     </div>
 
     <script>
@@ -106,7 +80,6 @@
         const playBtn = document.getElementById('play-pause-btn');
         const volBtn = document.getElementById('volume-btn');
 
-        // Play / Pause Funktion mit Icon-Wechsel
         playBtn.onclick = () => {
             if (audio.paused) {
                 audio.play();
@@ -117,7 +90,6 @@
             }
         };
 
-        // Lautstärke / Mute Funktion mit Icon-Wechsel
         volBtn.onclick = () => {
             audio.muted = !audio.muted;
             volBtn.innerHTML = audio.muted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
