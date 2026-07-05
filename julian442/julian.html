@@ -1,33 +1,203 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julian442</title>
     
-    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+    <!-- Favicon aus dem julian442-Ordner -->
+    <link rel="icon" type="image/jpeg" href="julian.jpg">
     
+    <!-- FontAwesome für moderne Social-Media-Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+
+    <!-- Integriertes CSS für maximale Unabhängigkeit -->
+    <style>
+        /* Basis-Layout & Dunkler Hintergrund */
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #12111a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        /* Haupt-Container */
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 40px 20px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Zurück zum Hub Link */
+        .back-link {
+            color: #60647c;
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: color 0.2s;
+        }
+        
+        .back-link:hover {
+            color: #00ff88;
+        }
+
+        /* Profil-Bereich */
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+            width: 100%;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 3px solid #00ff88;
+            box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            margin: 0 auto;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin: 15px 0 5px 0;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .tagline {
+            font-size: 0.95rem;
+            color: #00ff88;
+            margin: 0;
+            font-weight: 500;
+            text-align: center;
+        }
+
+        /* Boxen / Cards */
+        .section-box {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h3 {
+            font-size: 1.15rem;
+            margin-top: 0;
+            margin-bottom: 16px;
+            color: #ffffff;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #cdd1e4;
+            margin: 0;
+            text-align: left;
+        }
+
+        /* Link-Buttons Container */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .link-btn {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.25s ease;
+            box-sizing: border-box;
+        }
+
+        .link-btn i {
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .link-btn:hover {
+            background: #00ff88;
+            color: #12111a;
+            border-color: #00ff88;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 136, 0.25);
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .footer p {
+            font-size: 0.8rem;
+            color: #60647c;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
+        
+        <!-- Zurück-Button zum Hub (eine Ebene nach oben) -->
+        <a href="../index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Zurück zum Hub
+        </a>
+
+        <!-- Profile Section -->
         <header class="profile">
-            <img src="julian442/julian.jpg" alt="Profile Picture" class="avatar">
+            <!-- Lädt das Bild direkt aus dem julian442/ Ordner -->
+            <img src="julian.jpg" alt="Profile Picture" class="avatar">
             <h1>Julian</h1>
-            <p class="tagline">Developer & Creator</p>
+            <p class="tagline">Developer</p>
         </header>
 
+        <!-- About Me Section -->
         <section class="section-box">
             <h3>About Me 👋</h3>
-            <p>Ich Bin der Julian442</p>
+            <p>Ich bin der Julian442.</p>
         </section>
 
+        <!-- Links Section -->
         <section class="section-box">
             <h3>Links 🔗</h3>
             <div class="links-container">
-                <a href="https://github.com/julian442" target="_blank" class="link-btn">
+                <a href="https://github.com/julixn442" target="_blank" class="link-btn">
                     <i class="fab fa-github"></i> My GitHub Repository
                 </a>
                 <a href="https://youtube.com/@Julian442" target="_blank" class="link-btn">
@@ -42,8 +212,9 @@
             </div>
         </section>
 
+        <!-- Footer -->
         <footer class="footer">
-            <p>© 2026</p>
+            <p>© 2026 @Julian442 • Powered by SynergyStation</p>
         </footer>
     </div>
 
