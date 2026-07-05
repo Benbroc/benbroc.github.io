@@ -14,7 +14,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Pfad auf den Ordner "background" angepasst */
+            /* Pfad zum Hintergrundbild im Ordner "background" */
             background: url('background/bg_Julian442.png') no-repeat center center fixed;
             background-size: cover;
             color: #ffffff;
@@ -53,6 +53,7 @@
 </head>
 <body>
 
+    <!-- Pfad zur Musik im Ordner "music" -->
     <audio id="bg-audio" loop>
         <source src="music/song_Julian442.mp3" type="audio/mpeg">
     </audio>
@@ -85,7 +86,10 @@
             if (audio.paused) {
                 audio.play().then(() => {
                     playIcon.className = "fas fa-pause";
-                }).catch(err => alert("Audio-Datei konnte nicht geladen werden."));
+                }).catch(err => {
+                    console.error("Fehler:", err);
+                    alert("Datei 'music/song_Julian442.mp3' wurde nicht gefunden.");
+                });
             } else {
                 audio.pause();
                 playIcon.className = "fas fa-play";
