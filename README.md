@@ -21,7 +21,7 @@ Welcome to the central Link-in-Bio and Project Showcase Hub of **SynergyStation*
 
 ```text
 ├── index.html                  # Main web page (Hub) with built-in GitHub API update checking
-├── style.css                   # Global stylesheet and core layout configurations
+├── developer.html              # All the Developers that are in this Project
 ├── benkormos.html              # Profile page for BenKormos
 ├── julian.html                 # Profile page for Julian442 (with custom background & blur support)
 ├── mexo.html                   # Profile page for Mexo
