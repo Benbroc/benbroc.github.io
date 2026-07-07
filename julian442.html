@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecting...</title>
     
-    <!-- Automatische HTML-Weiterleitung nach 0 Sekunden auf /benkormos -->
+    <!-- Automatische HTML-Weiterleitung nach 0 Sekunden auf /julian -->
     <meta http-equiv="refresh" content="0;url=/julian">
     
     <!-- FontAwesome Icons -->
@@ -52,7 +52,7 @@
         p {
             color: #9497ad;
             font-size: 0.9rem;
-            margin: 0;
+            margin: 0 0 20px 0;
         }
 
         a {
@@ -63,6 +63,29 @@
 
         a:hover {
             text-decoration: underline;
+        }
+
+        /* Styling für die Social/Link-Icons */
+        .icon-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: #9497ad;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #ff85a2; /* Schönes Rosa passend zur Blüte */
+            transform: scale(1.1);
+        }
+
+        .social-icon.discord:hover {
+            color: #5865F2; /* Discord Blau beim Hover */
         }
 
         @keyframes spin {
@@ -77,6 +100,17 @@
         <i class="fas fa-circle-notch spinner"></i>
         <h2>Verbindung wird hergestellt</h2>
         <p>Du wirst weitergeleitet... Falls nicht, <a href="/julian">klicke hier</a>.</p>
+        
+        <!-- Icon Bereich -->
+        <div class="icon-container">
+            <!-- Discord Icon (Platzhalter, da in deiner Vorlage erwähnt) -->
+            <a href="#" class="social-icon discord" title="Discord"><i class="fab fa-discord"></i></a>
+            
+            <!-- Neues Kirschblüten/Stock-Icon -->
+            <a href="https://stock.wisp.uno/" target="_blank" class="social-icon" title="Stock 🌸">
+                <i class="fas fa-seedling"></i> 🌸
+            </a>
+        </div>
     </div>
 
     <!-- JavaScript Fallback-Weiterleitung, falls Meta-Refresh blockiert wird -->
