@@ -24,6 +24,14 @@
             --tiktok-color: #ff0050;
 
             --text-gradient: linear-gradient(90deg, #ff8a00, #e61edf, #ff8a00);
+
+            /* Global Announcement Bar - an Mexo-Theme angepasst */
+            --gm-bar-bg: rgba(10, 7, 18, 0.9);
+            --gm-ink: #ffffff;
+            --gm-muted: #8b8ea8;
+            --gm-line: rgba(255,255,255,0.08);
+            --gm-accent-1: #00f2fe;
+            --gm-accent-2: #e61edf;
         }
 
         body {
@@ -397,9 +405,100 @@
             opacity: 0.85;
             z-index: 10;
         }
+
+        /* ============================================================
+           GLOBAL ANNOUNCEMENT BAR (übernommen aus Julian-Profil,
+           farblich an das dunkle Cyan/Violett-Theme von Mexo angepasst)
+           ============================================================ */
+        #gm-bar{
+            position:fixed;
+            top:24px;
+            left:50%;
+            z-index:99999;
+            display:flex;
+            align-items:center;
+            gap:14px;
+            padding:12px 22px 12px 12px;
+            border-radius:18px;
+            background:var(--gm-bar-bg);
+            backdrop-filter: blur(12px);
+            border:1px solid var(--gm-line);
+            box-shadow: 0 20px 45px -18px rgba(0, 242, 254, 0.35), 0 2px 10px rgba(230, 30, 223, 0.2);
+            max-width:min(90vw, 480px);
+            transform: translate(-50%, -140%);
+            transition: transform .5s cubic-bezier(.22,1.1,.32,1);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        #gm-bar.show{ transform: translate(-50%, 0); }
+
+        #gm-bar .gm-avatar{
+            width:40px; height:40px;
+            border-radius:50%;
+            overflow:hidden;
+            flex:none;
+            background:linear-gradient(150deg, var(--gm-accent-1), var(--gm-accent-2));
+            display:flex; align-items:center; justify-content:center;
+            box-shadow: inset 0 -3px 8px rgba(0,0,0,0.3);
+        }
+        #gm-bar .gm-avatar img{ width:100%; height:100%; object-fit:cover; }
+        #gm-bar .gm-avatar .gm-initials{
+            color:#fff; font-family:system-ui, sans-serif; font-size:13px; font-weight:700;
+        }
+
+        #gm-bar .gm-textline{
+            display:flex;
+            align-items:baseline;
+            flex-wrap:wrap;
+            gap:6px;
+            min-width:0;
+        }
+
+        #gm-bar .gm-name{
+            color:var(--gm-ink);
+            font-weight:700;
+            font-size:14px;
+            flex:none;
+            display:flex;
+            align-items:center;
+            gap:5px;
+        }
+
+        #gm-bar .gm-badge{ width:18px; height:18px; flex:none; }
+
+        #gm-bar .gm-colon{ color:var(--gm-muted); font-weight:700; flex:none; }
+
+        #gm-bar .gm-msg{
+            color:var(--gm-ink);
+            font-size:14px;
+            opacity:.92;
+            white-space:normal;
+            word-break:break-word;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Global Announcement Bar: wird per ntfy.sh SSE befuellt, sobald im Admin-Bereich eine Nachricht gesendet wird -->
+    <div id="gm-bar">
+        <div class="gm-avatar" id="gm-avatar"><span class="gm-initials" id="gm-initials"></span></div>
+        <div class="gm-textline">
+            <span class="gm-name" id="gm-name">
+                <span id="gm-name-text"></span>
+                <svg class="gm-badge" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="gmBadgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#00f2fe"/>
+                            <stop offset="100%" stop-color="#e61edf"/>
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#gmBadgeGrad)" d="M256 4l36.6 55.9 63.7-19.4 8.9 66.3 66.3 8.9-19.4 63.7L468 256l-55.9 36.6 19.4 63.7-66.3 8.9-8.9 66.3-63.7-19.4L256 468l-36.6-55.9-63.7 19.4-8.9-66.3-66.3-8.9 19.4-63.7L4 256l55.9-36.6-19.4-63.7 66.3-8.9 8.9-66.3 63.7 19.4z"/>
+                    <path fill="#fff" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" d="M175 260l50 50 112-112"/>
+                </svg>
+            </span>
+            <span class="gm-colon">:</span>
+            <span class="gm-msg" id="gm-msg"></span>
+        </div>
+    </div>
 
     <div class="bg-video-container">
         <video autoplay loop muted playsinline class="bg-video">
@@ -673,6 +772,67 @@
         } else {
             updateViews();
         }
+
+        // --- Global Announcement Bar (übernommen aus Julian-Profil) ---
+        (function(){
+            const bar = document.getElementById('gm-bar');
+            const avatarWrap = document.getElementById('gm-avatar');
+            const nameText = document.getElementById('gm-name-text');
+            const msgEl = document.getElementById('gm-msg');
+
+            let lastSeenId = null;
+            let hideTimer = null;
+
+            function initials(name){
+                return name.split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join("").toUpperCase();
+            }
+
+            function showBar(data){
+                avatarWrap.innerHTML = data.avatar
+                    ? `<img src="${data.avatar}" alt="${data.name}">`
+                    : `<span class="gm-initials">${initials(data.name)}</span>`;
+                nameText.textContent = data.name;
+                msgEl.textContent = data.message;
+
+                bar.classList.add('show');
+
+                if(hideTimer) clearTimeout(hideTimer);
+                // 5–10 Sekunden Anzeigedauer
+                const holdMs = Math.min(10000, Math.max(5000, 5000 + data.message.length * 40));
+                hideTimer = setTimeout(() => {
+                    bar.classList.remove('show');
+                }, holdMs);
+            }
+
+            // Öffentlicher, kostenloser Broadcast-Kanal über ntfy.sh (kein Server, kein Account nötig).
+            // WICHTIG: Muss exakt mit dem Kanalnamen in der Admin-Datei übereinstimmen (identisch zu Julian).
+            const GM_CHANNEL = "global-massage-broadcast-4471";
+
+            function connect(){
+                const es = new EventSource(`https://ntfy.sh/${GM_CHANNEL}/sse`);
+
+                es.onmessage = function(e){
+                    try{
+                        const envelope = JSON.parse(e.data);
+                        if(envelope.event === "message" && envelope.message){
+                            const data = JSON.parse(envelope.message);
+                            if(data.id !== lastSeenId){
+                                showBar(data);
+                                lastSeenId = data.id;
+                            }
+                        }
+                    }catch(err){
+                        // keine gültige Nachricht in diesem Event, ignorieren
+                    }
+                };
+
+                es.onerror = function(){
+                    console.warn("ntfy-Verbindung unterbrochen, versuche erneut zu verbinden …");
+                };
+            }
+
+            connect();
+        })();
     </script>
 
 </body>
