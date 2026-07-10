@@ -405,10 +405,24 @@
             opacity: 0.85;
             z-index: 10;
         }
+        
+        /* Taco-Animation für Admin Abuse */
+        .taco {
+            position: fixed;
+            top: -10%;
+            font-size: 2rem;
+            pointer-events: none;
+            animation: fall-taco linear forwards;
+            z-index: 999999;
+        }
+        @keyframes fall-taco {
+            0%   { transform: translateY(0) rotate(0deg); opacity: 1; }
+            90%  { opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+        }
 
         /* ============================================================
-           GLOBAL ANNOUNCEMENT BAR (übernommen aus Julian-Profil,
-           farblich an das dunkle Cyan/Violett-Theme von Mexo angepasst)
+           GLOBAL ANNOUNCEMENT BAR
            ============================================================ */
         #gm-bar{
             position:fixed;
@@ -478,7 +492,7 @@
 </head>
 <body>
 
-    <!-- Global Announcement Bar: wird per ntfy.sh SSE befuellt, sobald im Admin-Bereich eine Nachricht gesendet wird -->
+    <!-- Global Announcement Bar -->
     <div id="gm-bar">
         <div class="gm-avatar" id="gm-avatar"><span class="gm-initials" id="gm-initials"></span></div>
         <div class="gm-textline">
@@ -555,23 +569,10 @@
 
             <section class="section-box">
                 <div class="links-container">
-                    
-                    <a href="https://www.twitch.tv/marlow_jeep" target="_blank" class="link-btn twitch" title="Twitch">
-                        <i class="fab fa-twitch platform-icon"></i>
-                    </a>
-
-                    <a href="https://dc.gg/ben" target="_blank" class="link-btn discord" title="Discord">
-                        <i class="fab fa-discord platform-icon"></i>
-                    </a>
-
-                    <a href="https://github.com/mexoOG" target="_blank" class="link-btn github" title="GitHub">
-                        <i class="fab fa-github platform-icon"></i>
-                    </a>
-
-                    <a href="https://www.tiktok.com/@mexoyt2.0" target="_blank" class="link-btn tiktok" title="TikTok">
-                        <i class="fab fa-tiktok platform-icon"></i>
-                    </a>
-                    
+                    <a href="https://www.twitch.tv/marlow_jeep" target="_blank" class="link-btn twitch" title="Twitch"><i class="fab fa-twitch platform-icon"></i></a>
+                    <a href="https://dc.gg/ben" target="_blank" class="link-btn discord" title="Discord"><i class="fab fa-discord platform-icon"></i></a>
+                    <a href="https://github.com/mexoOG" target="_blank" class="link-btn github" title="GitHub"><i class="fab fa-github platform-icon"></i></a>
+                    <a href="https://www.tiktok.com/@mexoyt2.0" target="_blank" class="link-btn tiktok" title="TikTok"><i class="fab fa-tiktok platform-icon"></i></a>
                 </div>
             </section>
 
@@ -582,15 +583,17 @@
         </footer>
     </div>
 
-    <!-- View Counter HTML Element (Hier kannst du 'Aufrufe' durch ein beliebiges Wort ersetzen) -->
     <div class="view-counter">
         <i class="fas fa-eye"></i>
         <span id="view-count">0</span> Views
     </div>
 
     <div id="reset-log"></div>
+    
+    <audio id="taco-audio" preload="auto">
+        <source src="music/Tacos.mp3" type="audio/mpeg">
+    </audio>
 
-    <!-- Musik & Counter Script -->
     <script>
         const songs = [
             { title: 'BLN - Ak Ausserkontrolle', src: '/music/mexo/Tuff.mp3' },
@@ -600,240 +603,70 @@
 
         let currentSongIndex = 0;
         let isPlaying = false;
-
         const audio = new Audio();
-        audio.muted = false; 
         audio.volume = 0.5;
+        const tacoAudio = document.getElementById('taco-audio');
 
+        // Musik-Steuerung
         const playBtn = document.getElementById('play-btn');
         const playIcon = document.getElementById('play-icon');
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const trackTitle = document.getElementById('track-title');
         const musicIcon = document.getElementById('music-icon');
-        const volumeSlider = document.getElementById('volume-slider');
         const volIcon = document.getElementById('volume-icon');
-
-        volumeSlider.value = 0.5;
-        volIcon.className = 'fas fa-volume-high volume-icon';
-
-        function loadSong(song) {
-            trackTitle.textContent = song.title;
-            audio.src = song.src;
-        }
-
-        function playSong() {
-            audio.play().then(() => {
-                playIcon.className = 'fas fa-pause';
-                musicIcon.classList.add('playing');
-                isPlaying = true;
-            }).catch(err => {
-                console.log("Abspielen blockiert oder Datei nicht gefunden:", err);
-                isPlaying = false;
-            });
-        }
-
-        function pauseSong() {
-            audio.pause();
-            playIcon.className = 'fas fa-play';
-            musicIcon.classList.remove('playing');
-            isPlaying = false;
-        }
+        const volumeSlider = document.getElementById('volume-slider');
 
         function togglePlay() {
-            if (isPlaying) {
-                pauseSong();
-            } else {
-                if (audio.volume === 0) {
-                    audio.volume = 0.5;
-                    volumeSlider.value = 0.5;
-                    volIcon.className = 'fas fa-volume-high volume-icon';
-                }
-                playSong();
-            }
+            if (isPlaying) { audio.pause(); playIcon.className = 'fas fa-play'; musicIcon.classList.remove('playing'); }
+            else { audio.play().then(() => { playIcon.className = 'fas fa-pause'; musicIcon.classList.add('playing'); }); }
+            isPlaying = !isPlaying;
         }
 
-        function changeSong(next = true) {
-            if (next) {
-                currentSongIndex = (currentSongIndex + 1) % songs.length;
-            } else {
-                currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
-            }
-            
-            loadSong(songs[currentSongIndex]);
-            
-            if (isPlaying) {
-                playSong();
-            } else {
-                playIcon.className = 'fas fa-play';
-                musicIcon.classList.remove('playing');
-            }
+        playBtn.onclick = togglePlay;
+        volumeSlider.oninput = (e) => audio.volume = e.target.value;
+
+        // Taco Effect
+        let tacoInterval = null;
+        function startTacoEffect(durationSeconds) {
+            tacoAudio.currentTime = 0;
+            tacoAudio.play().catch(e => console.log("Audio blockiert"));
+            const endTime = Date.now() + (durationSeconds * 1000);
+            tacoInterval = setInterval(() => {
+                if(Date.now() > endTime) { stopTacoEffect(); return; }
+                const t = document.createElement('div');
+                t.className = 'taco';
+                t.textContent = '🌮';
+                t.style.left = (Math.random() * 95) + '%';
+                t.style.animationDuration = (Math.random() * 2 + 2) + 's'; 
+                document.body.appendChild(t);
+                setTimeout(() => t.remove(), 5000);
+            }, 300);
         }
+        function stopTacoEffect() { if(tacoInterval) clearInterval(tacoInterval); tacoAudio.pause(); }
 
-        playBtn.addEventListener('click', togglePlay);
-        nextBtn.addEventListener('click', () => changeSong(true));
-        prevBtn.addEventListener('click', () => changeSong(false));
-        audio.addEventListener('ended', () => changeSong(true));
-
-        volIcon.addEventListener('click', () => {
-            if (audio.volume > 0) {
-                audio.volume = 0;
-                volumeSlider.value = 0;
-                volIcon.className = 'fas fa-volume-mute volume-icon';
-            } else {
-                audio.volume = 0.5;
-                volumeSlider.value = 0.5;
-                volIcon.className = 'fas fa-volume-high volume-icon';
-            }
-        });
-
-        volumeSlider.addEventListener('input', (e) => {
-            const val = e.target.value;
-            audio.volume = val;
-            
-            if (val == 0) {
-                volIcon.className = 'fas fa-volume-mute volume-icon';
-            } else if (val < 0.4) {
-                volIcon.className = 'fas fa-volume-low volume-icon';
-            } else {
-                volIcon.className = 'fas fa-volume-high volume-icon';
-            }
-        });
-
-        loadSong(songs[currentSongIndex]);
-
-        // --- VIEW COUNTER SCRIPT MIT 12-STUNDEN-SPERRE ---
-        const resetLog = document.getElementById('reset-log');
-
-        // --- Reset per URL-Parameter: ?reset=true ---
-        // Setzt den lokalen View-Zähler und die 12h-Sperre in diesem Browser zurück.
-        // --- Beliebigen Wert setzen per URL-Parameter: ?views=ZAHL ---
-        // Setzt den lokalen View-Zähler direkt auf die angegebene Zahl.
-        const params = new URLSearchParams(window.location.search);
-        const shouldReset = params.get('reset') === 'true';
-        const viewsParam = params.get('views');
-        const shouldSetViews = viewsParam !== null && !isNaN(parseInt(viewsParam));
-
-        function performReset() {
-            resetLog.textContent = "Setze Views zurück...";
-            localStorage.removeItem('mexo_hub_views');
-            localStorage.removeItem('mexo_hub_last_time');
-
-            document.getElementById('view-count').textContent = 0;
-            resetLog.textContent = "Views wurden auf 0 zurückgesetzt ✅";
-
-            // Parameter aus der URL entfernen, damit ein Reload nicht erneut resettet
-            params.delete('reset');
-            const newUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
-            window.history.replaceState({}, '', newUrl);
-        }
-
-        function performSetViews() {
-            const newValue = parseInt(viewsParam);
-            resetLog.textContent = `Setze Views auf ${newValue}...`;
-            localStorage.setItem('mexo_hub_views', newValue);
-            localStorage.setItem('mexo_hub_last_time', new Date().getTime());
-
-            document.getElementById('view-count').textContent = newValue;
-            resetLog.textContent = `Views wurden auf ${newValue} gesetzt ✅`;
-
-            // Parameter aus der URL entfernen, damit ein Reload nicht erneut setzt
-            params.delete('views');
-            const newUrl = window.location.pathname + (params.toString() ? `?${params.toString()}` : '');
-            window.history.replaceState({}, '', newUrl);
-        }
-
-        function updateViews() {
-            let currentViews = localStorage.getItem('mexo_hub_views');
-            let lastViewTime = localStorage.getItem('mexo_hub_last_time');
-            
-            const now = new Date().getTime();
-            const twelveHours = 12 * 60 * 60 * 1000;
-
-            if (currentViews === null) {
-                currentViews = 1;
-                localStorage.setItem('mexo_hub_views', currentViews);
-                localStorage.setItem('mexo_hub_last_time', now);
-            } else {
-                if (!lastViewTime || (now - parseInt(lastViewTime)) >= twelveHours) {
-                    currentViews = parseInt(currentViews) + 1;
-                    localStorage.setItem('mexo_hub_views', currentViews);
-                    localStorage.setItem('mexo_hub_last_time', now);
-                }
-            }
-            
-            document.getElementById('view-count').textContent = currentViews;
-        }
-        
-        if (shouldReset) {
-            performReset();
-        } else if (shouldSetViews) {
-            performSetViews();
-        } else {
-            updateViews();
-        }
-
-        // --- Global Announcement Bar (übernommen aus Julian-Profil) ---
+        // Global Announcement Bar
         (function(){
             const bar = document.getElementById('gm-bar');
             const avatarWrap = document.getElementById('gm-avatar');
             const nameText = document.getElementById('gm-name-text');
             const msgEl = document.getElementById('gm-msg');
 
-            let lastSeenId = null;
-            let hideTimer = null;
-
-            function initials(name){
-                return name.split(/\s+/).filter(Boolean).slice(0,2).map(w => w[0]).join("").toUpperCase();
-            }
-
             function showBar(data){
-                avatarWrap.innerHTML = data.avatar
-                    ? `<img src="${data.avatar}" alt="${data.name}">`
-                    : `<span class="gm-initials">${initials(data.name)}</span>`;
+                avatarWrap.innerHTML = data.avatar ? `<img src="${data.avatar}" alt="Avatar">` : '';
                 nameText.textContent = data.name;
                 msgEl.textContent = data.message;
-
                 bar.classList.add('show');
-
-                if(hideTimer) clearTimeout(hideTimer);
-                // 5–10 Sekunden Anzeigedauer
-                const holdMs = Math.min(10000, Math.max(5000, 5000 + data.message.length * 40));
-                hideTimer = setTimeout(() => {
-                    bar.classList.remove('show');
-                }, holdMs);
+                setTimeout(() => bar.classList.remove('show'), 8000);
             }
 
-            // Öffentlicher, kostenloser Broadcast-Kanal über ntfy.sh (kein Server, kein Account nötig).
-            // WICHTIG: Muss exakt mit dem Kanalnamen in der Admin-Datei übereinstimmen (identisch zu Julian).
-            const GM_CHANNEL = "global-massage-broadcast-4471";
-
-            function connect(){
-                const es = new EventSource(`https://ntfy.sh/${GM_CHANNEL}/sse`);
-
-                es.onmessage = function(e){
-                    try{
-                        const envelope = JSON.parse(e.data);
-                        if(envelope.event === "message" && envelope.message){
-                            const data = JSON.parse(envelope.message);
-                            if(data.id !== lastSeenId){
-                                showBar(data);
-                                lastSeenId = data.id;
-                            }
-                        }
-                    }catch(err){
-                        // keine gültige Nachricht in diesem Event, ignorieren
-                    }
-                };
-
-                es.onerror = function(){
-                    console.warn("ntfy-Verbindung unterbrochen, versuche erneut zu verbinden …");
-                };
-            }
-
-            connect();
+            const es = new EventSource(`https://ntfy.sh/global-massage-broadcast-4471/sse`);
+            es.onmessage = function(e){
+                try {
+                    const data = JSON.parse(JSON.parse(e.data).message);
+                    if(data.type === 'announce') showBar(data);
+                    else if(data.type === 'taco_rain') startTacoEffect(data.duration || 10);
+                    else if(data.type === 'taco_stop') stopTacoEffect();
+                } catch(err){}
+            };
         })();
     </script>
-
 </body>
 </html>
