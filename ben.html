@@ -22,13 +22,52 @@
     <!-- Audio Node -->
     <audio id="bg-music"></audio>
 
+    <!-- 1. KDE PLASMA REAL LOGIN SCREEN -->
+    <div class="kde-login-screen" id="login-screen">
+        <div class="login-wrapper">
+            <div class="user-avatar-area">
+                <img src="pictures/benkormos.profilbild.jpg" alt="BenKormos" class="login-avatar">
+                <h1 class="login-username">BenKormos</h1>
+            </div>
+            <div class="login-input-form">
+                <input type="password" id="login-password-input" placeholder="Passwort eingeben...">
+                <button id="btn-submit-login"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            <p id="login-error-msg" class="login-error-text"></p>
+            <div class="login-bottom-actions">
+                <button onclick="alert('Shutdown blockiert im Login-Modus.')"><i class="fas fa-power-off"></i> Herunterfahren</button>
+                <button onclick="alert('Session: Plasma (Wayland)')"><i class="fas fa-cog"></i> Plasma (Wayland)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. KDE PLASMA BOOT SPLASH SCREEN ANIMATION -->
+    <div class="kde-splash-screen" id="splash-screen">
+        <div class="splash-content">
+            <!-- KDE Gear / Logo gear-like layout representation -->
+            <div class="kde-logo-animation">
+                <i class="fab fa-kde"></i>
+            </div>
+            <div class="kde-splash-spinner"></div>
+        </div>
+    </div>
+
+    <!-- SHUTDOWN SCREEN OVERLAY -->
+    <div class="shutdown-overlay" id="shutdown-screen">
+        <div class="shutdown-box">
+            <i class="fas fa-power-off shutdown-icon"></i>
+            <h2 id="shutdown-text">System wird heruntergefahren...</h2>
+            <div class="kde-spinner"></div>
+        </div>
+    </div>
+
     <!-- DESKTOP WORKSPACE (Contains draggable windows) -->
     <div class="desktop-area">
 
         <!-- CORE INTERFACE DIALOG BOX (MODAL) -->
         <div class="modal-vault draggable-window" id="info-modal" style="display: none; top: 15%; left: 35%;">
             <div class="window-titlebar">
-                <span class="titlebar-text">Properties</span>
+                <span class="titlebar-text"><i class="fas fa-info-circle"></i> Properties</span>
                 <button class="close-vault-btn" id="close-modal"><i class="fas fa-times"></i></button>
             </div>
             <div class="window-content">
@@ -51,11 +90,11 @@
             
             <!-- WINDOW TITLE BAR -->
             <div class="window-titlebar">
-                <span class="titlebar-text">BenKormos Navigator - Command Center</span>
+                <span class="titlebar-text"><i class="fas fa-sliders-h"></i> Control Windows</span>
                 <div class="titlebar-controls">
                     <button class="titlebar-btn" id="btn-minimize-main"><i class="fas fa-minus"></i></button>
                     <button class="titlebar-btn" id="btn-maximize-main"><i class="far fa-square"></i></button>
-                    <button class="titlebar-btn" id="btn-close-main"><i class="fas fa-times"></i></button>
+                    <button class="titlebar-btn close-btn" id="btn-close-main"><i class="fas fa-times"></i></button>
                 </div>
             </div>
 
@@ -91,7 +130,7 @@
                     
                     <!-- SUMMARY -->
                     <section class="deck-section">
-                        <div class="section-tag"><i class="fas fa-user-terminal"></i> 01 / Identity Core</div>
+                        <div class="section-tag"><i class="fas fa-terminal"></i> 01 / Identity Core</div>
                         <p class="bio-text">
                             Welcome to my space! I love building codes, tinkering with code, and sharing my latest projects and favorite links right here with you. Everything is built to adapt dynamically.
                         </p>
@@ -216,13 +255,36 @@
 
         </div>
 
+        <!-- REAL WEB BROWSER WINDOW (Updated Default URL & Added Frame Sandbox Alert Meta) -->
+        <div class="terminal-container draggable-window" id="browser-window" style="top: 12%; left: 20%; display: none; width: 800px; height: 520px;">
+            <div class="window-titlebar">
+                <span class="titlebar-text"><i class="fas fa-globe"></i> Falkon Web Browser</span>
+                <div class="titlebar-controls">
+                    <button class="titlebar-btn" id="btn-minimize-browser"><i class="fas fa-minus"></i></button>
+                    <button class="titlebar-btn" id="btn-maximize-browser"><i class="far fa-square"></i></button>
+                    <button class="titlebar-btn close-btn" id="btn-close-browser"><i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="browser-address-bar">
+                <button class="browser-nav-btn" onclick="document.getElementById('web-frame').contentWindow.history.back()"><i class="fas fa-arrow-left"></i></button>
+                <input type="text" id="browser-url-input" value="https://www.wikipedia.org" placeholder="URL eingeben (z.B. https://wikipedia.org)...">
+                <button class="browser-nav-btn" id="btn-browser-go"><i class="fas fa-arrow-right"></i></button>
+            </div>
+            <div class="browser-security-banner">
+                <i class="fas fa-exclamation-triangle"></i> Einige Seiten blockieren die Einbettung (SAMEORIGIN). Nutze z.B. Wikipedia oder eigene Unterseiten.
+            </div>
+            <div style="flex: 1; position: relative; background: #fff;">
+                <iframe id="web-frame" src="https://www.wikipedia.org" style="width: 100%; height: 100%; border: none;"></iframe>
+            </div>
+        </div>
+
         <!-- WINAMP STYLE FLOATING MUSIC PLAYER -->
-        <div class="winamp-player draggable-window" id="winamp-window" style="bottom: 60px; right: 20px;">
+        <div class="winamp-player draggable-window" id="winamp-window" style="bottom: 70px; right: 20px; width: 320px; height: 155px;">
             <div class="window-titlebar winamp-title">
-                <span class="titlebar-text"><i class="fas fa-music"></i> WINAMP - PIPELINE AUDIO</span>
+                <span class="titlebar-text"><i class="fas fa-music"></i> Elisa - Audio Player</span>
                 <div class="titlebar-controls">
                     <button class="titlebar-btn" id="btn-minimize-amp"><i class="fas fa-minus"></i></button>
-                    <button class="titlebar-btn" id="btn-close-amp"><i class="fas fa-times"></i></button>
+                    <button class="titlebar-btn close-btn" id="btn-close-amp"><i class="fas fa-times"></i></button>
                 </div>
             </div>
             
@@ -242,36 +304,44 @@
 
     </div>
 
-    <!-- WINDOWS 95 BOTTOM TASKBAR & START MENU -->
+    <!-- KDE PLASMA BOTTOM TASKBAR / PANEL -->
     <div class="win95-taskbar">
         <div class="start-menu-container">
             <button class="start-btn" id="start-button">
-                <i class="fab fa-windows" style="color: #000000; font-size: 14px;"></i>
-                <span>Start</span>
+                <i class="fas fa-th-large" style="color: #3daee9; font-size: 16px;"></i>
             </button>
             
-            <!-- THE START MENU PANEL -->
+            <!-- THE START MENU PANEL (KDE Kickoff style) -->
             <div class="start-menu-panel" id="start-menu">
                 <div class="start-sidebar">
-                    <div class="sidebar-rotator">Windows<span>95</span></div>
+                    <div class="kde-user-meta">
+                        <img src="pictures/benkormos.profilbild.jpg" alt="User">
+                        <span>BenKormos</span>
+                    </div>
                 </div>
                 <div class="start-menu-links">
-                    <a href="https://github.com/benbroc" target="_blank" class="menu-item"><i class="fab fa-github"></i> GitHub Profile</a>
-                    <a href="https://youtube.com/@benkormos" target="_blank" class="menu-item"><i class="fab fa-youtube"></i> YouTube Node</a>
+                    <div class="menu-category">Favorites</div>
+                    <a href="#" class="menu-item" id="start-open-browser"><i class="fas fa-globe"></i> Falkon Browser</a>
+                    <a href="https://github.com/benbroc" target="_blank" class="menu-item"><i class="fab fa-github"></i> GitHub</a>
+                    <a href="https://youtube.com/@benkormos" target="_blank" class="menu-item"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://twitch.tv/benkormos" target="_blank" class="menu-item"><i class="fab fa-twitch"></i> Twitch</a>
                     <div class="menu-separator"></div>
-                    <a href="#" class="menu-item" onclick="location.reload();"><i class="fas fa-sync-alt"></i> Restart System...</a>
+                    <a href="#" class="menu-item" id="menu-logout"><i class="fas fa-sign-out-alt"></i> Log Out...</a>
+                    <a href="#" class="menu-item" id="menu-shutdown"><i class="fas fa-power-off"></i> Restart System...</a>
                 </div>
             </div>
         </div>
 
         <div class="taskbar-windows-list">
-            <div class="taskbar-tab active" id="tab-main-window">BenKormos Nav...</div>
-            <div class="taskbar-tab active" id="tab-winamp-window">Winamp</div>
+            <div class="taskbar-tab active" id="tab-main-window"><i class="fas fa-sliders-h"></i> Control Windows</div>
+            <div class="taskbar-tab" id="tab-browser-window" style="display: none;"><i class="fas fa-globe"></i> Falkon Browser</div>
+            <div class="taskbar-tab active" id="tab-winamp-window"><i class="fas fa-music"></i> Audio Player</div>
         </div>
 
         <div class="taskbar-right-tray">
             <!-- System Tray -->
             <div class="system-tray">
+                <i class="fas fa-wifi"></i>
                 <i class="fas fa-volume-up"></i>
                 <span id="tray-clock">15:00</span>
             </div>
@@ -398,6 +468,48 @@
         // Close Logic
         closeModalBtn.addEventListener('click', () => modal.style.display = 'none');
 
+        // --- AUTHENTIC KDE LOGIN & BOOT SEQUENCE SYSTEM ---
+        const loginScreen = document.getElementById('login-screen');
+        const splashScreen = document.getElementById('splash-screen');
+        const passwordInput = document.getElementById('login-password-input');
+        const btnSubmitLogin = document.getElementById('btn-submit-login');
+        const loginErrorMsg = document.getElementById('login-error-msg');
+
+        function verifyLogin() {
+            if(passwordInput.value === '1234') {
+                loginErrorMsg.textContent = "";
+                // Phase 1: Hide login screen
+                loginScreen.classList.add('hide-sequence');
+                
+                // Phase 2: Trigger KDE Plasma Splash Screen Boot Animation
+                setTimeout(() => {
+                    loginScreen.style.display = 'none';
+                    splashScreen.classList.add('active');
+                    
+                    // Phase 3: Load Desktop Workspace after boot animation completes
+                    setTimeout(() => {
+                        splashScreen.classList.add('hide-sequence');
+                        setTimeout(() => {
+                            splashScreen.style.display = 'none';
+                            // Start Background Tracks if allowed
+                            if(audio.paused && audio.src) { playTrack(); }
+                        }, 600);
+                    }, 2500); // Animation duration
+                    
+                }, 400);
+            } else {
+                loginErrorMsg.textContent = "Ungültiges Passwort! Versuche es erneut.";
+                passwordInput.classList.add('shake-anim');
+                passwordInput.value = '';
+                setTimeout(() => passwordInput.classList.remove('shake-anim'), 400);
+            }
+        }
+
+        btnSubmitLogin.addEventListener('click', verifyLogin);
+        passwordInput.addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') verifyLogin();
+        });
+
         // --- WINDOWS 95 START MENU LOGIC ---
         const startButton = document.getElementById('start-button');
         const startMenu = document.getElementById('start-menu');
@@ -415,6 +527,40 @@
 
         startMenu.addEventListener('click', (e) => e.stopPropagation());
 
+        // --- SHUTDOWN & LOGOUT ANIMATION LOGIC ---
+        const shutdownScreen = document.getElementById('shutdown-screen');
+        const shutdownText = document.getElementById('shutdown-text');
+
+        function triggerPowerSequence(text, isLogout = false) {
+            shutdownText.textContent = text;
+            shutdownScreen.classList.add('active');
+            
+            setTimeout(() => {
+                shutdownScreen.classList.remove('active');
+                if(isLogout) {
+                    // Reset to login architecture state
+                    passwordInput.value = '';
+                    loginScreen.classList.remove('hide-sequence');
+                    splashScreen.classList.remove('hide-sequence', 'active');
+                    loginScreen.style.display = 'flex';
+                    splashScreen.style.display = 'flex';
+                    audio.pause();
+                } else {
+                    location.reload();
+                }
+            }, 3000);
+        }
+
+        document.getElementById('menu-shutdown').addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerPowerSequence("System wird neu gestartet...");
+        });
+
+        document.getElementById('menu-logout').addEventListener('click', (e) => {
+            e.preventDefault();
+            triggerPowerSequence("Benutzer BenKormos wird abgemeldet...", true);
+        });
+
         // --- SYSTEM TRAY CLOCK RENDER ---
         function updateTrayClock() {
             const now = new Date();
@@ -430,8 +576,11 @@
         // --- WINDOW INTERACTION LOGIC (MINIMIZE, MAXIMIZE, CLOSE) ---
         const mainWindow = document.getElementById('main-window');
         const winampWindow = document.getElementById('winamp-window');
+        const browserWindow = document.getElementById('browser-window');
+        
         const tabMain = document.getElementById('tab-main-window');
         const tabWinamp = document.getElementById('tab-winamp-window');
+        const tabBrowser = document.getElementById('tab-browser-window');
 
         // Main Window UI Controls
         document.getElementById('btn-minimize-main').addEventListener('click', (e) => {
@@ -446,7 +595,7 @@
         document.getElementById('btn-close-main').addEventListener('click', (e) => {
             e.stopPropagation();
             mainWindow.style.display = 'none';
-            tabMain.style.display = 'none';
+            tabMain.classList.remove('active');
         });
 
         // Winamp UI Controls
@@ -458,7 +607,48 @@
         document.getElementById('btn-close-amp').addEventListener('click', (e) => {
             e.stopPropagation();
             winampWindow.style.display = 'none';
-            tabWinamp.style.display = 'none';
+            tabWinamp.classList.remove('active');
+        });
+
+        // Browser UI Controls
+        document.getElementById('start-open-browser').addEventListener('click', (e) => {
+            e.preventDefault();
+            browserWindow.style.display = 'flex';
+            tabBrowser.style.display = 'flex';
+            tabBrowser.classList.add('active');
+            startMenu.classList.remove('active');
+            bringToFront(browserWindow);
+        });
+        document.getElementById('btn-minimize-browser').addEventListener('click', (e) => {
+            e.stopPropagation();
+            browserWindow.style.display = 'none';
+            tabBrowser.classList.remove('active');
+        });
+        document.getElementById('btn-maximize-browser').addEventListener('click', (e) => {
+            e.stopPropagation();
+            browserWindow.classList.toggle('fullscreen-window');
+        });
+        document.getElementById('btn-close-browser').addEventListener('click', (e) => {
+            e.stopPropagation();
+            browserWindow.style.display = 'none';
+            tabBrowser.classList.remove('active');
+        });
+
+        // Browser Navigation Action
+        const webFrame = document.getElementById('web-frame');
+        const urlInput = document.getElementById('browser-url-input');
+        
+        function navigateBrowser() {
+            let url = urlInput.value.trim();
+            if (!/^https?:\/\//i.test(url)) {
+                url = 'https://' + url;
+            }
+            webFrame.src = url;
+            urlInput.value = url;
+        }
+        document.getElementById('btn-browser-go').addEventListener('click', navigateBrowser);
+        urlInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') navigateBrowser();
         });
 
         // Taskbar Tabs Functionality
@@ -481,6 +671,17 @@
             } else {
                 winampWindow.style.display = 'none';
                 tabWinamp.classList.remove('active');
+            }
+        });
+
+        tabBrowser.addEventListener('click', () => {
+            if (browserWindow.style.display === 'none' || !tabBrowser.classList.contains('active')) {
+                browserWindow.style.display = 'flex';
+                tabBrowser.classList.add('active');
+                bringToFront(browserWindow);
+            } else {
+                browserWindow.style.display = 'none';
+                tabBrowser.classList.remove('active');
             }
         });
 
@@ -515,14 +716,6 @@
                 playerStatus.classList.add('marquee-active');
             }).catch(() => {});
         }
-
-        function handleFirstInteraction() {
-            if (audio.paused && audio.src) {
-                playTrack();
-            }
-            window.removeEventListener('click', handleFirstInteraction);
-        }
-        window.addEventListener('click', handleFirstInteraction);
 
         btnPlay.addEventListener('click', (e) => { e.stopPropagation(); playTrack(); });
         btnPause.addEventListener('click', (e) => { e.stopPropagation(); audio.pause(); });
@@ -580,7 +773,7 @@
 
             function dragStart(e) {
                 e = e || window.event;
-                if(e.target.closest('button')) return;
+                if(e.target.closest('button') || e.target.closest('input')) return;
                 
                 e.preventDefault();
                 pos3 = e.clientX;
