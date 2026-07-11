@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SynergyStation Hub</title>
-    
+
+    <!-- Theme must be applied before CSS paints, to avoid a flash of the wrong mode -->
+    <script>
+        (function () {
+            var saved = localStorage.getItem('synergy-theme');
+            var theme = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
+
     <link rel="icon" type="image/jpeg" href="logo.png">
-    
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
@@ -29,6 +38,9 @@
                 <img src="logo.png" alt="Ben" class="nav-avatar">
                 <span>Developers</span>
             </a>
+            <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Hell/Dunkel umschalten">
+                <i class="fas fa-gear"></i>
+            </button>
             <a href="https://dc.gg/ben" target="_blank" class="nav-btn discord-btn">
                 <i class="fab fa-discord"></i> <span>Discord</span>
             </a>
@@ -220,6 +232,27 @@
         }
 
         document.addEventListener('DOMContentLoaded', fetchLatestUpdates);
+
+        // --- THEME TOGGLE ---
+        (function () {
+            var toggleBtn = document.getElementById('theme-toggle');
+            var icon = toggleBtn.querySelector('i');
+
+            function syncIcon() {
+                var current = document.documentElement.getAttribute('data-theme');
+                icon.className = current === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+            }
+
+            toggleBtn.addEventListener('click', function () {
+                var current = document.documentElement.getAttribute('data-theme');
+                var next = current === 'light' ? 'dark' : 'light';
+                document.documentElement.setAttribute('data-theme', next);
+                localStorage.setItem('synergy-theme', next);
+                syncIcon();
+            });
+
+            syncIcon();
+        })();
     </script>
 </body>
 </html>
