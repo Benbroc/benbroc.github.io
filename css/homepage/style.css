@@ -1,27 +1,27 @@
-/* --- MANIFEST / CARBON COPY (DARK) SYSTEM & FONTS --- */
+/* --- MANIFEST / PAPER SYSTEM & FONTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 :root {
-    /* Carbon Copy Palette */
-    --bg-main: #15130d;
-    --bg-surface: #1d1a12;
-    --bg-surface-elevated: #232016;
+    /* Aged Paper Palette */
+    --bg-main: #f2ece0;
+    --bg-surface: #e9e1cd;
+    --bg-surface-elevated: #fffbf2;
 
     /* Ruled / Form Borders */
-    --border-main: rgba(245, 239, 224, 0.08);
-    --border-active: rgba(245, 239, 224, 0.24);
+    --border-main: rgba(26, 22, 15, 0.14);
+    --border-active: rgba(26, 22, 15, 0.4);
 
-    /* Ink Stamp Accents (brightened for dark ground) */
-    --accent-stamp: #6fa8ff;   /* approval blue */
-    --accent-hazard: #ffa24f; /* hazard orange */
-    --accent-ok: #4fdb96;     /* status green */
-    --accent-alert: #ff7a6c;  /* void red */
+    /* Ink Stamp Accents */
+    --accent-stamp: #1f4fa3;   /* approval blue */
+    --accent-hazard: #d9660b; /* hazard orange */
+    --accent-ok: #2f6d4f;     /* status green */
+    --accent-alert: #b3261e;  /* void red */
 
-    /* Cream Ink Typography */
-    --text-pure: #f5efdf;
-    --text-main: #cdc4ac;
-    --text-muted: #746c56;
-    --text-dark: #15130d;
+    /* Ink Typography */
+    --text-pure: #17140f;
+    --text-main: #3a352b;
+    --text-muted: #8a8168;
+    --text-dark: #fffbf2;
 
     /* Typography Tokens */
     --font-display: 'Archivo Black', sans-serif;
@@ -45,8 +45,8 @@
 body {
     background-color: var(--bg-main);
     background-image:
-        repeating-linear-gradient(rgba(245, 239, 224, 0.035) 0px, rgba(245, 239, 224, 0.035) 1px, transparent 1px, transparent 32px),
-        radial-gradient(rgba(245, 239, 224, 0.05) 0.6px, transparent 0.6px);
+        repeating-linear-gradient(rgba(26, 22, 15, 0.05) 0px, rgba(26, 22, 15, 0.05) 1px, transparent 1px, transparent 32px),
+        radial-gradient(rgba(26, 22, 15, 0.08) 0.6px, transparent 0.6px);
     background-size: auto, 6px 6px;
     background-attachment: fixed;
     color: var(--text-main);
@@ -99,14 +99,14 @@ body::before {
     max-width: 1100px;
     height: 54px;
     background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-active);
+    border: 1px solid var(--text-pure);
     border-radius: var(--radius-md);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 16px;
     z-index: 1000;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 3px 3px 0 rgba(26, 22, 15, 0.1);
 }
 
 .nav-logo {
@@ -149,7 +149,7 @@ body::before {
 .nav-btn.dev-btn:hover {
     color: var(--text-pure);
     border-style: solid;
-    border-color: var(--border-active);
+    border-color: var(--text-pure);
     background: var(--bg-surface);
 }
 
@@ -195,7 +195,7 @@ body::before {
     object-fit: cover;
     border-radius: var(--radius-lg);
     border: 2px solid var(--text-pure);
-    filter: grayscale(0.35) contrast(1.05) brightness(0.95);
+    filter: grayscale(0.35) contrast(1.05) sepia(0.08);
     transition: var(--transition-fast);
 }
 
@@ -203,7 +203,7 @@ body::before {
     filter: grayscale(0);
 }
 
-/* Ink stamp badge, overlapping the avatar corner — screen blend so it glows on dark ground */
+/* Ink stamp badge, overlapping the avatar corner */
 .avatar-mainframe::after {
     content: 'VERIFIED';
     position: absolute;
@@ -218,8 +218,8 @@ body::before {
     padding: 2px 5px;
     border-radius: var(--radius-sm);
     transform: rotate(-9deg);
-    background: rgba(21, 19, 13, 0.7);
-    mix-blend-mode: screen;
+    background: rgba(255, 251, 242, 0.7);
+    mix-blend-mode: multiply;
     pointer-events: none;
 }
 
@@ -252,16 +252,15 @@ body::before {
 .panel {
     position: relative;
     background: var(--bg-surface-elevated);
-    border: 1px solid var(--border-main);
+    border: 1px solid var(--border-active);
     border-radius: var(--radius-lg);
     padding: 20px;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 3px 0 rgba(26, 22, 15, 0.07);
     transition: var(--transition-fast);
 }
 
 .panel:hover {
-    border-color: var(--border-active);
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.4);
+    box-shadow: 4px 4px 0 rgba(26, 22, 15, 0.1);
     transform: translate(-1px, -1px);
 }
 
@@ -298,7 +297,7 @@ body::before {
     color: var(--text-pure);
     margin-bottom: 16px;
     padding-bottom: 10px;
-    border-bottom: 1px dashed var(--border-main);
+    border-bottom: 1px dashed var(--border-active);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -321,7 +320,7 @@ body::before {
 .panel-title .badge {
     font-size: 0.6rem;
     color: var(--text-muted);
-    background: var(--bg-main);
+    background: var(--bg-surface);
     padding: 2px 6px;
     border-radius: var(--radius-sm);
     border: 1px solid var(--border-main);
@@ -329,9 +328,9 @@ body::before {
 
 /* --- LOG TERMINAL --- */
 .cron-terminal {
-    background: #100e09;
-    background-image: repeating-linear-gradient(rgba(245, 239, 224, 0.025) 0px, rgba(245, 239, 224, 0.025) 1px, transparent 1px, transparent 3px);
-    border: 1px dashed var(--border-main);
+    background: #fbf5e6;
+    background-image: repeating-linear-gradient(rgba(26, 22, 15, 0.03) 0px, rgba(26, 22, 15, 0.03) 1px, transparent 1px, transparent 3px);
+    border: 1px dashed var(--border-active);
     border-radius: var(--radius-md);
     padding: 14px;
     font-family: var(--font-mono);
@@ -377,7 +376,7 @@ body::before {
 
 .profile-node {
     background: var(--bg-surface);
-    border: 1px dashed var(--border-main);
+    border: 1px dashed var(--border-active);
     border-radius: var(--radius-md);
     padding: 28px 12px 20px 12px;
     text-align: center;
@@ -418,7 +417,7 @@ body::before {
     background: var(--bg-surface-elevated);
     border-style: solid;
     transform: translate(-1px, -1px);
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.35);
+    box-shadow: 3px 3px 0 rgba(26, 22, 15, 0.1);
 }
 
 .profile-node:nth-child(1):hover { border-color: var(--accent-stamp); }
@@ -438,8 +437,8 @@ body::before {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: var(--bg-main);
-    border: 1px solid var(--border-main);
+    background: var(--bg-surface-elevated);
+    border: 1px solid var(--border-active);
     padding: 2px 6px;
     border-radius: var(--radius-sm);
     z-index: 5;
@@ -453,9 +452,9 @@ body::before {
     transition: var(--transition-fast);
 }
 
-.status-indicator.online { background-color: var(--accent-ok); box-shadow: 0 0 4px var(--accent-ok); }
-.status-indicator.idle { background-color: var(--accent-hazard); box-shadow: 0 0 4px var(--accent-hazard); }
-.status-indicator.offline { background-color: var(--text-muted); box-shadow: none; }
+.status-indicator.online { background-color: var(--accent-ok); }
+.status-indicator.idle { background-color: var(--accent-hazard); }
+.status-indicator.offline { background-color: var(--text-muted); }
 
 .status-selector {
     background: transparent;
@@ -485,7 +484,7 @@ body::before {
     align-items: center;
     justify-content: space-between;
     background: var(--bg-surface);
-    border: 1px dashed var(--border-main);
+    border: 1px dashed var(--border-active);
     border-radius: var(--radius-md);
     padding: 12px 16px;
     text-decoration: none;
