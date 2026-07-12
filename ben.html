@@ -17,6 +17,7 @@
     <link rel="icon" type="image/jpeg" href="pictures/benkormos.profilbild.jpg">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="css/benkormos/style.css">
@@ -98,6 +99,179 @@
         @media (max-width: 620px) {
             .spotify-track-info { display: none; }
             .spotify-btn { max-width: none; padding: 6px 8px; }
+        }
+
+        /* --- TECH STACK PILLS --- */
+        .tech-matrix {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-token {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 12px;
+            background: var(--bg-surface);
+            border: 1px dashed var(--border-main);
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .tech-token i {
+            font-size: 1rem;
+        }
+
+        .tech-token:hover {
+            border-style: solid;
+            border-color: var(--border-active);
+            background: var(--bg-surface-elevated);
+            color: var(--text-pure);
+            transform: translate(-1px, -1px);
+            box-shadow: 2px 2px 0 rgba(var(--shadow-rgb), 0.3);
+        }
+
+        /* --- SYSTEM NODE CARDS (reuses .profile-node, no status box) --- */
+        .sys-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .sys-node {
+            cursor: pointer;
+            border: none;
+            font: inherit;
+        }
+
+        .sys-node:hover { border-color: var(--accent-stamp); }
+        .sys-node:hover .avatar-fallback { color: var(--accent-stamp); }
+
+        /* --- INFO MODAL --- */
+        .info-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(var(--shadow-rgb), 0.6);
+            backdrop-filter: blur(3px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .info-modal-overlay.active {
+            display: flex;
+        }
+
+        .info-modal {
+            position: relative;
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-surface-elevated);
+            border: 1px solid var(--border-active);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            box-shadow: 5px 5px 0 rgba(var(--shadow-rgb), 0.4);
+            animation: manifest-stamp-in 0.25s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+        }
+
+        .info-modal::before,
+        .info-modal::after {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            pointer-events: none;
+        }
+
+        .info-modal::before {
+            top: -1px; left: -1px;
+            border-top: 2px solid var(--accent-stamp);
+            border-left: 2px solid var(--accent-stamp);
+        }
+
+        .info-modal::after {
+            bottom: -1px; right: -1px;
+            border-bottom: 2px solid var(--accent-hazard);
+            border-right: 2px solid var(--accent-hazard);
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: transparent;
+            border: 1px dashed var(--border-active);
+            border-radius: var(--radius-sm);
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: var(--transition-fast);
+        }
+
+        .modal-close-btn:hover {
+            color: var(--text-pure);
+            border-style: solid;
+            background: var(--bg-surface);
+        }
+
+        .modal-lead-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 14px;
+            padding-right: 24px;
+        }
+
+        .modal-lead-row i {
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+
+        .modal-lead-row h3 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-pure);
+        }
+
+        .modal-lead-row span {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .modal-desc {
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 14px;
+        }
+
+        .modal-use-box {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: var(--accent-ok);
+            background: var(--bg-main);
+            border: 1px dashed var(--border-main);
+            border-radius: var(--radius-sm);
+            padding: 10px 12px;
         }
     </style>
 </head>
@@ -184,6 +358,50 @@
 
         <section class="panel">
             <div class="panel-title">
+                <span><i class="fas fa-code"></i> TECH_STACK</span>
+                <span class="badge">06 LANGS</span>
+            </div>
+            <div class="tech-matrix">
+                <button type="button" class="tech-token" data-node="html"><i class="devicon-html5-plain" style="color: #e34c26;"></i> HTML5</button>
+                <button type="button" class="tech-token" data-node="css"><i class="devicon-css3-plain" style="color: #264de4;"></i> CSS3</button>
+                <button type="button" class="tech-token" data-node="js"><i class="devicon-javascript-plain" style="color: #f7df1e;"></i> JavaScript</button>
+                <button type="button" class="tech-token" data-node="python"><i class="devicon-python-plain" style="color: #3776ab;"></i> Python</button>
+                <button type="button" class="tech-token" data-node="cpp"><i class="devicon-cplusplus-plain" style="color: #00599c;"></i> C++</button>
+                <button type="button" class="tech-token" data-node="java"><i class="devicon-java-plain" style="color: #f89820;"></i> Java</button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-title">
+                <span><i class="fas fa-server"></i> SYSTEMS</span>
+                <span class="badge">04 NODES</span>
+            </div>
+            <div class="holo-grid sys-grid">
+                <button type="button" class="sys-node profile-node" data-node="win10">
+                    <i class="fab fa-windows avatar-fallback"></i>
+                    <h4>Windows 10</h4>
+                    <span>Host Workstation</span>
+                </button>
+                <button type="button" class="sys-node profile-node" data-node="macos">
+                    <i class="fab fa-apple avatar-fallback"></i>
+                    <h4>macOS Ventura</h4>
+                    <span>2nd Main Machine</span>
+                </button>
+                <button type="button" class="sys-node profile-node" data-node="win11">
+                    <i class="fab fa-windows avatar-fallback"></i>
+                    <h4>Windows Server</h4>
+                    <span>Sandbox / Testing</span>
+                </button>
+                <button type="button" class="sys-node profile-node" data-node="ubuntu">
+                    <i class="fab fa-ubuntu avatar-fallback"></i>
+                    <h4>Ubuntu Server</h4>
+                    <span>Backend / Cronjobs</span>
+                </button>
+            </div>
+        </section>
+
+        <section class="panel">
+            <div class="panel-title">
                 <span><i class="fas fa-code-branch"></i> PROJECTS</span>
                 <span class="badge">02 REPOS</span>
             </div>
@@ -212,6 +430,22 @@
         <footer class="hub-footer">
             // BenKormosProductions // PROFILE_NODE //
         </footer>
+    </div>
+
+    <!-- INFO MODAL -->
+    <div class="info-modal-overlay" id="info-modal-overlay">
+        <div class="info-modal">
+            <button type="button" class="modal-close-btn" id="close-modal"><i class="fas fa-times"></i></button>
+            <div class="modal-lead-row">
+                <i id="m-icon"></i>
+                <div>
+                    <h3 id="m-title">Registry Node</h3>
+                    <span id="m-type">// PARAM_LOG</span>
+                </div>
+            </div>
+            <p class="modal-desc" id="m-desc">—</p>
+            <div class="modal-use-box" id="m-use">—</div>
+        </div>
     </div>
 
     <script>
@@ -270,6 +504,124 @@
                     // No data / endpoint not set up yet — keep the widget hidden, fail silently
                     widget.style.display = 'none';
                 });
+        })();
+        // --- TECH / SYSTEM INFO MODAL ---
+        (function () {
+            const centralDatabase = {
+                html: {
+                    title: "HTML5 Engine",
+                    type: "DOM_STRUCTURE_MARKUP",
+                    icon: "devicon-html5-plain",
+                    color: "#e34c26",
+                    desc: "Hypertext Markup Language. The structural skeleton of web modules. Deployed to map out layouts, viewport anchors, and semantic elements inside the document model.",
+                    use: "TASK: Blueprint Compilation & Layout Formatting"
+                },
+                css: {
+                    title: "CSS3 Matrix",
+                    type: "GRAPHICS_SHADING_INTERFACE",
+                    icon: "devicon-css3-plain",
+                    color: "#264de4",
+                    desc: "Cascading Style Sheets. Controls the entire asset layout properties, hover state feedback, and responsive rendering pipelines.",
+                    use: "TASK: UI Formatting & Custom Responsive Shaders"
+                },
+                js: {
+                    title: "JavaScript Runtime",
+                    type: "ASYNCHRONOUS_CORE_SCRIPTS",
+                    icon: "devicon-javascript-plain",
+                    color: "#f7df1e",
+                    desc: "High-level ECMAScript controller engine. Drives interactive execution pipelines, background loop checks, and state monitoring without overhead delays.",
+                    use: "TASK: Event Handling & DOM Node Control"
+                },
+                python: {
+                    title: "Python Engine",
+                    type: "INTERPRETED_AUTOMATION_NODE",
+                    icon: "devicon-python-plain",
+                    color: "#3776ab",
+                    desc: "Object-oriented language optimized for automation tasks, data streaming, file parsers, and local software automation layers.",
+                    use: "TASK: System Micro-Automation & Analytical Scrapers"
+                },
+                cpp: {
+                    title: "C++ Compiler Core",
+                    type: "LOW_LEVEL_NATIVE_EXECUTION",
+                    icon: "devicon-cplusplus-plain",
+                    color: "#00599c",
+                    desc: "High-speed compiled native architecture. Grants hardware abstraction layers, deterministic speed capabilities, and precise system runtime configuration.",
+                    use: "TASK: Heavy System Computations & Hardware Integration"
+                },
+                java: {
+                    title: "Java Runtime Stack",
+                    type: "JVM_VIRTUALIZATION_ENVIRONMENT",
+                    icon: "devicon-java-plain",
+                    color: "#f89820",
+                    desc: "Robust object-oriented development framework running on the Java Virtual Machine (JVM). Provides cross-platform compliance for heavy logic operations.",
+                    use: "TASK: Enterprise Application Logic & Multiplatform Backends"
+                },
+                win10: {
+                    title: "Windows 10 Workstation",
+                    type: "PRIMARY_HARDWARE_HOST_OS",
+                    icon: "fab fa-windows",
+                    color: "#00a3ee",
+                    desc: "Primary operating host workstation. Anchors heavy software environments, virtualization frameworks, and main active engineering workflows.",
+                    use: "CORE HOST: Central Production Workspace & Engineering Terminal"
+                },
+                macos: {
+                    title: "macOS Ventura 13.7.8",
+                    type: "SECONDARY_MAIN_MACHINE_NODE",
+                    icon: "fab fa-apple",
+                    color: "#ffc837",
+                    desc: "Second active main machine. Unix-certified workstation environment used for native diagnostic tasks and cross-compiler testing.",
+                    use: "CORE SUBHOST: Secondary Main Terminal // Native Unix Stack"
+                },
+                win11: {
+                    title: "Windows Server 2026 Edition",
+                    type: "VIRTUAL_SANDBOX_SUBSYSTEM",
+                    icon: "fab fa-windows",
+                    color: "#0078d4",
+                    desc: "Modern NT core environment deployed for framework evaluation, interface validation, and multi-threaded virtualization layers.",
+                    use: "ENVIRONMENT: Secondary Sandbox & Multi-Thread Testing"
+                },
+                ubuntu: {
+                    title: "Ubuntu Server 24.04 LTS",
+                    type: "HEADLESS_LINUX_BACKEND",
+                    icon: "fab fa-ubuntu",
+                    color: "#e95420",
+                    desc: "Headless Linux container engine built on Noble Numbat. Configured for secure automated cronjobs, backend scripts, and microservice testing.",
+                    use: "ENVIRONMENT: Background Microservices & Host Database Testing"
+                }
+            };
+
+            const overlay = document.getElementById('info-modal-overlay');
+            const closeBtn = document.getElementById('close-modal');
+            const mIcon = document.getElementById('m-icon');
+            const mTitle = document.getElementById('m-title');
+            const mType = document.getElementById('m-type');
+            const mDesc = document.getElementById('m-desc');
+            const mUse = document.getElementById('m-use');
+
+            document.querySelectorAll('[data-node]').forEach((node) => {
+                node.addEventListener('click', () => {
+                    const key = node.getAttribute('data-node');
+                    const data = centralDatabase[key];
+                    if (!data) return;
+
+                    mIcon.className = data.icon;
+                    mIcon.style.color = data.color;
+                    mTitle.textContent = data.title;
+                    mType.textContent = `// REGISTRY: ${data.type}`;
+                    mDesc.textContent = data.desc;
+                    mUse.textContent = data.use;
+
+                    overlay.classList.add('active');
+                });
+            });
+
+            closeBtn.addEventListener('click', () => overlay.classList.remove('active'));
+            overlay.addEventListener('click', (e) => {
+                if (e.target === overlay) overlay.classList.remove('active');
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') overlay.classList.remove('active');
+            });
         })();
     </script>
 </body>
